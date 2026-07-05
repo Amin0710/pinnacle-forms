@@ -426,6 +426,75 @@
 					scroll-behavior: auto;
 				}
 			}
+			/* ---------- result modal ---------- */
+			.modal-overlay {
+				position: fixed;
+				inset: 0;
+				z-index: 1000;
+				display: none;
+				align-items: center;
+				justify-content: center;
+				padding: 20px;
+				background: rgba(15, 23, 42, 0.55);
+			}
+			.modal-overlay.open {
+				display: flex;
+			}
+			.modal-box {
+				background: #fff;
+				border-radius: 14px;
+				max-width: 440px;
+				width: 100%;
+				padding: 32px 28px;
+				text-align: center;
+				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+			}
+			.modal-icon {
+				width: 64px;
+				height: 64px;
+				margin: 0 auto 18px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 34px;
+				font-weight: 700;
+				color: #fff;
+			}
+			.modal-overlay.success .modal-icon {
+				background: var(--ok);
+			}
+			.modal-overlay.error .modal-icon {
+				background: var(--error);
+			}
+			.modal-title {
+				margin: 0 0 10px;
+				font-size: 1.25rem;
+				color: var(--ink);
+			}
+			.modal-overlay.error .modal-title {
+				color: var(--error);
+			}
+			.modal-msg {
+				margin: 0;
+				color: #475569;
+				line-height: 1.5;
+				font-size: 0.95rem;
+			}
+			.btn-close {
+				margin-top: 22px;
+				padding: 10px 22px;
+				border: 0;
+				border-radius: 8px;
+				background: var(--error);
+				color: #fff;
+				font: inherit;
+				font-weight: 600;
+				cursor: pointer;
+			}
+			.btn-close:hover {
+				filter: brightness(0.94);
+			}
 		</style>
 	</head>
 	<body>
@@ -450,7 +519,7 @@
 				<!-- ============ APPLICATION ============ -->
 				<div class="card">
 					<div class="head">
-						Application for Enrolment <span class="step">Section 1 of 10</span>
+						Application for Enrolment <span class="step">Section 1 of 11</span>
 					</div>
 					<div class="body">
 						<fieldset>
@@ -685,7 +754,7 @@
 				<!-- ============ PERSONAL DETAILS ============ -->
 				<div class="card">
 					<div class="head">
-						Personal Details <span class="step">Section 2 of 10</span>
+						Personal Details <span class="step">Section 2 of 11</span>
 					</div>
 					<div class="body">
 						<fieldset>
@@ -971,7 +1040,7 @@
 				<div class="card">
 					<div class="head">
 						Language and Cultural Diversity
-						<span class="step">Section 3 of 10</span>
+						<span class="step">Section 3 of 11</span>
 					</div>
 					<div class="body">
 						<fieldset>
@@ -1081,7 +1150,7 @@
 				<!-- ============ DISABILITY ============ -->
 				<div class="card">
 					<div class="head">
-						Disability <span class="step">Section 4 of 10</span>
+						Disability <span class="step">Section 4 of 11</span>
 					</div>
 					<div class="body">
 						<fieldset>
@@ -1266,7 +1335,7 @@
 				<!-- ============ SCHOOLING ============ -->
 				<div class="card">
 					<div class="head">
-						Schooling <span class="step">Section 5 of 10</span>
+						Schooling <span class="step">Section 5 of 11</span>
 					</div>
 					<div class="body">
 						<fieldset>
@@ -1359,7 +1428,7 @@
 				<div class="card">
 					<div class="head">
 						Previous Qualifications Achieved
-						<span class="step">Section 6 of 10</span>
+						<span class="step">Section 6 of 11</span>
 					</div>
 					<div class="body">
 						<fieldset>
@@ -1537,7 +1606,7 @@
 				<div class="card">
 					<div class="head">
 						Employment &amp; Study Reason
-						<span class="step">Section 7 of 10</span>
+						<span class="step">Section 7 of 11</span>
 					</div>
 					<div class="body">
 						<fieldset>
@@ -1724,7 +1793,7 @@
 				<div class="card">
 					<div class="head">
 						Next of Kin / Emergency Contact
-						<span class="step">Section 8 of 10</span>
+						<span class="step">Section 8 of 11</span>
 					</div>
 					<div class="body">
 						<p class="note">
@@ -1763,8 +1832,17 @@
 								><input type="email" id="kin_email" name="kin_email" />
 							</div>
 						</div>
+					</div>
+				</div>
 
-						<fieldset style="margin-top: 24px">
+				<!-- ============ Employment Details ============ -->
+				<div class="card">
+					<div class="head">
+						Employment Details
+						<span class="step">Section 9 of 11</span>
+					</div>
+					<div class="body">
+						<fieldset>
 							<legend>
 								Employment details
 								<span class="hint" style="font-weight: 400"
@@ -1830,7 +1908,7 @@
 				<div class="card">
 					<div class="head">
 						Victorian Student Number &amp; USI
-						<span class="step">Section 9 of 10</span>
+						<span class="step">Section 10 of 11</span>
 					</div>
 					<div class="body">
 						<fieldset>
@@ -1959,7 +2037,7 @@
 				<div class="card">
 					<div class="head">
 						Privacy Notice &amp; Declaration
-						<span class="step">Section 10 of 10</span>
+						<span class="step">Section 11 of 11</span>
 					</div>
 					<div class="body">
 						<details style="margin-bottom: 16px">
@@ -2221,7 +2299,6 @@
 							<button type="submit" class="submit" id="submitbtn">
 								Submit enrolment form
 							</button>
-							<div class="status" id="status"></div>
 						</div>
 					</div>
 				</div>
@@ -2238,6 +2315,26 @@
 			><br />
 			SC6.2-I – Enrolment Form V3.0 (ID 186643)
 		</footer>
+
+		<!-- result modal (populated by the form script on submit) -->
+		<div class="modal-overlay" id="resultModal" hidden>
+			<div
+				class="modal-box"
+				id="resultDialog"
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="modalTitle"
+				aria-describedby="modalMsg"
+				tabindex="-1"
+			>
+				<div class="modal-icon" id="modalIcon" aria-hidden="true"></div>
+				<h2 class="modal-title" id="modalTitle"></h2>
+				<p class="modal-msg" id="modalMsg"></p>
+				<button type="button" class="btn-close" id="modalClose">
+					Close &amp; try again
+				</button>
+			</div>
+		</div>
 
 		<script>
 			/* ================================================================
@@ -2432,12 +2529,49 @@
 				/* ---------- submission ---------- */
 				var form = document.getElementById("mainform");
 				var btn = document.getElementById("submitbtn");
-				var status = document.getElementById("status");
+				var modal = document.getElementById("resultModal");
+				var modalBox = document.getElementById("resultDialog");
+				var modalIcon = document.getElementById("modalIcon");
+				var modalTitle = document.getElementById("modalTitle");
+				var modalMsg = document.getElementById("modalMsg");
+				var modalClose = document.getElementById("modalClose");
+				var modalReturnFocus = null;
 
+				function closeModal() {
+					modal.classList.remove("open");
+					modal.setAttribute("hidden", "");
+					document.removeEventListener("keydown", onModalKey);
+					if (modalReturnFocus && modalReturnFocus.focus) modalReturnFocus.focus();
+				}
+				function onModalKey(e) {
+					/* Esc dismisses errors only — a successful submit is terminal */
+					if (e.key === "Escape" && !modal.classList.contains("success"))
+						closeModal();
+				}
+				modalClose.addEventListener("click", closeModal);
+				modal.addEventListener("click", function (e) {
+					/* click on the backdrop dismisses errors only */
+					if (e.target === modal && !modal.classList.contains("success"))
+						closeModal();
+				});
+
+				/* shows the result modal — cls "ok" = success, anything else = error */
 				function showStatus(cls, msg) {
-					status.className = "status " + cls;
-					status.textContent = msg;
-					status.scrollIntoView({ behavior: "smooth", block: "center" });
+					var ok = cls === "ok";
+					modalReturnFocus = document.activeElement;
+					modal.classList.toggle("success", ok);
+					modal.classList.toggle("error", !ok);
+					modalIcon.textContent = ok ? "✓" : "!";
+					modalTitle.textContent = ok
+						? "Form submitted successfully"
+						: "Form not sent";
+					modalMsg.textContent = msg.replace(/^✓s*/, "");
+					modalClose.hidden = ok; // success is terminal — offer no dismiss
+					modal.removeAttribute("hidden");
+					modal.classList.add("open");
+					if (ok) window.scrollTo({ top: 0, behavior: "smooth" });
+					document.addEventListener("keydown", onModalKey);
+					(ok ? modalBox : modalClose).focus();
 				}
 
 				form.addEventListener("submit", function (ev) {
