@@ -1,0 +1,2525 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Enrolment Form — Pinnacle Institute of Education</title>
+		<meta name="robots" content="noindex" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			/* Pinnacle Institute of Education — shared form styles */
+			:root {
+				--blue: #0687b8;
+				--blue-dark: #056e96;
+				--blue-pale: #eaf5fa;
+				--slate: #4a5a62;
+				--ink: #22313a;
+				--line: #d6dfe4;
+				--bg: #f2f6f8;
+				--error: #c0392b;
+				--ok: #1e8a5a;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html {
+				scroll-behavior: smooth;
+			}
+			body {
+				margin: 0;
+				font-family:
+					"Public Sans",
+					-apple-system,
+					BlinkMacSystemFont,
+					"Segoe UI",
+					Roboto,
+					Arial,
+					sans-serif;
+				background: var(--bg);
+				color: var(--ink);
+				font-size: 16px;
+				line-height: 1.5;
+			}
+			.wrap {
+				max-width: 860px;
+				margin: 0 auto;
+				padding: 24px 16px 80px;
+			}
+			header.brand {
+				background: #fff;
+				border-bottom: 4px solid var(--blue);
+				padding: 18px 16px;
+			}
+			header.brand .inner {
+				max-width: 860px;
+				margin: 0 auto;
+				display: flex;
+				align-items: center;
+				gap: 20px;
+				flex-wrap: wrap;
+			}
+			header.brand img {
+				height: 56px;
+				width: auto;
+			}
+			header.brand h1 {
+				font-size: 1.35rem;
+				margin: 0;
+				color: var(--slate);
+				font-weight: 600;
+				letter-spacing: 0.02em;
+			}
+			header.brand .sub {
+				font-size: 0.85rem;
+				color: var(--slate);
+				margin: 2px 0 0;
+			}
+
+			.card {
+				background: #fff;
+				border: 1px solid var(--line);
+				border-radius: 10px;
+				margin: 22px 0;
+				overflow: hidden;
+				box-shadow: 0 1px 3px rgba(34, 49, 58, 0.05);
+			}
+			.card > .head {
+				background: var(--blue);
+				color: #fff;
+				padding: 12px 20px;
+				font-weight: 600;
+				font-size: 1.02rem;
+				letter-spacing: 0.02em;
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				gap: 12px;
+			}
+			.card > .head .step {
+				font-size: 0.78rem;
+				font-weight: 400;
+				opacity: 0.85;
+				white-space: nowrap;
+			}
+			.card > .body {
+				padding: 20px;
+			}
+			.note {
+				background: var(--blue-pale);
+				border-left: 4px solid var(--blue);
+				padding: 12px 16px;
+				border-radius: 6px;
+				font-size: 0.9rem;
+				color: var(--slate);
+				margin: 0 0 18px;
+			}
+			.hint {
+				font-size: 0.83rem;
+				color: var(--slate);
+				margin: 4px 0 0;
+			}
+
+			fieldset {
+				border: 0;
+				margin: 0 0 22px;
+				padding: 0;
+			}
+			fieldset:last-child {
+				margin-bottom: 0;
+			}
+			legend,
+			.q {
+				font-weight: 600;
+				margin-bottom: 8px;
+				padding: 0;
+				color: var(--ink);
+				display: block;
+			}
+			label.inline {
+				display: flex;
+				align-items: flex-start;
+				gap: 9px;
+				margin: 7px 0;
+				cursor: pointer;
+				font-weight: 400;
+			}
+			label.inline input {
+				margin-top: 3px;
+				accent-color: var(--blue);
+				width: 17px;
+				height: 17px;
+				flex: none;
+			}
+			.choices {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 4px 28px;
+			}
+			.choices label.inline {
+				margin: 5px 0;
+			}
+
+			input[type="text"],
+			input[type="email"],
+			input[type="tel"],
+			input[type="date"],
+			input[type="number"],
+			select,
+			textarea {
+				width: 100%;
+				padding: 10px 12px;
+				border: 1.5px solid var(--line);
+				border-radius: 7px;
+				font: inherit;
+				color: var(--ink);
+				background: #fff;
+			}
+			input:focus,
+			select:focus,
+			textarea:focus {
+				outline: 2px solid var(--blue);
+				outline-offset: 1px;
+				border-color: var(--blue);
+			}
+			textarea {
+				min-height: 110px;
+				resize: vertical;
+			}
+			.grid {
+				display: grid;
+				gap: 14px 18px;
+			}
+			.g2 {
+				grid-template-columns: 1fr 1fr;
+			}
+			.g3 {
+				grid-template-columns: 1fr 1fr 1fr;
+			}
+			@media (max-width: 640px) {
+				.g2,
+				.g3 {
+					grid-template-columns: 1fr;
+				}
+			}
+			.field label,
+			.field .lbl {
+				display: block;
+				font-size: 0.88rem;
+				font-weight: 600;
+				color: var(--slate);
+				margin-bottom: 5px;
+			}
+			.req::after {
+				content: " *";
+				color: var(--error);
+			}
+
+			table.mini {
+				width: 100%;
+				border-collapse: collapse;
+				margin-top: 8px;
+			}
+			table.mini th,
+			table.mini td {
+				border: 1px solid var(--line);
+				padding: 7px;
+				font-size: 0.88rem;
+				text-align: left;
+				vertical-align: top;
+			}
+			table.mini th {
+				background: var(--blue-pale);
+				color: var(--slate);
+			}
+			table.mini input,
+			table.mini textarea {
+				border-width: 1px;
+				padding: 7px 9px;
+			}
+			table.mini textarea {
+				min-height: 56px;
+			}
+
+			/* rating / grid radios */
+			table.rate {
+				width: 100%;
+				border-collapse: collapse;
+				margin-top: 8px;
+			}
+			table.rate th,
+			table.rate td {
+				border: 1px solid var(--line);
+				padding: 8px;
+				font-size: 0.88rem;
+			}
+			table.rate th {
+				background: var(--blue-pale);
+				color: var(--slate);
+				text-align: center;
+			}
+			table.rate td:first-child {
+				text-align: left;
+			}
+			table.rate td {
+				text-align: center;
+			}
+			table.rate input {
+				accent-color: var(--blue);
+				width: 17px;
+				height: 17px;
+			}
+			.scroll-x {
+				overflow-x: auto;
+			}
+
+			.icon-opts {
+				display: flex;
+				gap: 14px;
+				flex-wrap: wrap;
+				margin-top: 8px;
+			}
+			.icon-opts label {
+				border: 2px solid var(--line);
+				border-radius: 10px;
+				padding: 12px 16px;
+				cursor: pointer;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 8px;
+				min-width: 110px;
+				background: #fff;
+				transition: border-color 0.12s;
+			}
+			.icon-opts label:hover {
+				border-color: var(--blue);
+			}
+			.icon-opts input {
+				accent-color: var(--blue);
+				width: 17px;
+				height: 17px;
+			}
+			.icon-opts svg {
+				width: 56px;
+				height: 56px;
+			}
+			.icon-opts .cap {
+				font-size: 0.8rem;
+				color: var(--slate);
+			}
+			.icon-opts label:has(input:checked) {
+				border-color: var(--blue);
+				background: var(--blue-pale);
+			}
+
+			.reveal {
+				display: none;
+				margin-top: 10px;
+				padding: 14px;
+				border: 1px dashed var(--line);
+				border-radius: 8px;
+				background: #fafcfd;
+			}
+			.reveal.open {
+				display: block;
+			}
+
+			.readbox {
+				border: 1px solid var(--line);
+				border-radius: 8px;
+				padding: 16px 18px;
+				background: #fafcfd;
+				font-size: 0.95rem;
+				margin: 8px 0 14px;
+			}
+			.readbox p {
+				margin: 6px 0;
+			}
+
+			.decl {
+				background: var(--blue-pale);
+				border: 1px solid #bfdfed;
+				border-radius: 8px;
+				padding: 16px;
+			}
+			.decl label.inline {
+				font-size: 0.93rem;
+			}
+
+			.actions {
+				margin-top: 26px;
+				text-align: center;
+			}
+			button.submit {
+				background: var(--blue);
+				color: #fff;
+				border: 0;
+				border-radius: 8px;
+				padding: 14px 44px;
+				font: inherit;
+				font-weight: 600;
+				font-size: 1.05rem;
+				cursor: pointer;
+				transition: background 0.12s;
+			}
+			button.submit:hover {
+				background: var(--blue-dark);
+			}
+			button.submit:disabled {
+				opacity: 0.55;
+				cursor: wait;
+			}
+			.status {
+				margin-top: 14px;
+				font-weight: 600;
+				display: none;
+				padding: 14px;
+				border-radius: 8px;
+			}
+			.status.ok {
+				display: block;
+				background: #e6f5ee;
+				color: var(--ok);
+			}
+			.status.err {
+				display: block;
+				background: #fbeae8;
+				color: var(--error);
+			}
+			.invalid-msg {
+				color: var(--error);
+				font-size: 0.85rem;
+				display: none;
+				margin-top: 4px;
+			}
+			:invalid[data-touched] {
+				border-color: var(--error);
+			}
+
+			footer.foot {
+				max-width: 860px;
+				margin: 0 auto;
+				padding: 10px 16px 40px;
+				font-size: 0.78rem;
+				color: var(--slate);
+				text-align: center;
+				line-height: 1.6;
+			}
+			footer.foot a {
+				color: var(--blue);
+			}
+			@media (prefers-reduced-motion: reduce) {
+				html {
+					scroll-behavior: auto;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header class="brand">
+			<div class="inner">
+				<img
+					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXgAAACJCAIAAACpRrT5AABWL0lEQVR42u29d5xc5Xkv/n3e95SZ2Z3tRateUC+AGqIjmijCNmCKwRXigJ3Yjm+c3F+Sm8Q3xTflXqe5JI5twBRj3LBNB4FEUUWgjiTUpZVW2qJt08457/P8/jizo9FKu9qVVhjw+X7mQ5mdmXPOW77v0x8SEUSIECHC2YSKhiBChAgR0USIECEimggRIkSIiCZChAgR0USIECEimggRIkSIiCZChAgR0USIECFCRDQRIkSIiCZChAgR0USIECFCRDQRIkSIiCZChAgR0USIECFCRDQRIkT4IMA64Z2oPE2ECBHOBHRKopGIaCJEiDDkRBOpThEiRDjriIgmQoQIEdFEiBAhIpoIESJEiIgmQoQIEdFEiBAhIpr3K6jnnxRNYYQI739Y75P7EAiECAQSBgNKCSDMRCxakRAxAwpCMABBNMMAAFkARACBJggVqMgAYCiAIEIQooiVIkT43SYaiLAIwSJhIoGAWQmBJNAQEkBBUyjFWBCAoSgAB5BSaHgU+CRCiIsiEU/BgigQixAIkeQTIUJENABEBEIgCIQYBEUKUAqwgQCwAlAabFiCTE4C9uHmhJTWNmXiFkosikE8ZWllAbDYBMQapCAKRgRQEdVEiBARjYgIawqtRjaAVDqzo61zdyY43Na1o7WzyVBzZ6Yr47VnuDsj1ZaeUBU/p8EaX4txNXXjKivKiaycbPdac4qn1zWUkA0ACBD4QhT+5gmgKOUiQoQPE9FIj+1WAAYgUAAJIGAN0doBEBizraXt7SPtmxpbV+47tOlwRztKjGjkFLQNi5ExleWxC8eXfmTKqKtGVw6PO444DBIJABNoSWfNT19b3tLtnDt10oyG8um15SNLYgoEKDCLIhFSAAgCAzC9f5THCBE+vCAROZ4OztIJz4AWIaLAQACLOFSRDCwJYG1sbd+wv+XJbU1r9x7anwHYgWVDW4AiaGV5JiMJS90xo/yrF0+dUVNBYEAYWsEAMMwMYRO4dqLFx5d++sbjm/facZpaZl8zafzV59RfOH5YudJAWgx7ulQDmoXAofE4shNHiDB0UL99ogEChq9FwRA0ZQ0vb2x+9M0tz+5oavJcoVo4GmTIGBJiFdpWFLyuyW7s72+cf/O0MgVGAJAv2jawLHDh1o0BsWhbrTjUds2Dy1OSAAA/56LjkpHJ22ZPvXZ89bjyBGCDPUAZWEQGCA1CESJE+FAQDTOImKgbcNMSW7qn8cEVm57em057GrEKS3RJzmS071u+wBA7ogHFSJvxFfqhOy+6pF7DM75dGhDbgAXKK2Q9tx4Y0WCl/b0dcu3DL29vU9pKWmw8C+Kz7Wcnl/MnFoy/c8bo8eUlgM+GWKCUUioimggRPrBEI0DBLiOwODCWCgIlK/a0fO/1rb/c3ZriOFnlYivinOYck8VKIYx6QSAaYFNDePwT5181uiYlisSPiwWyQKGFxxDyBmSBCRgMchW/vq/5+seWdasqMjEn8KDEV3EmC34nTPu4crpv3tR7z5tc4zo+ckRkWZGlJkKEDyrRkIAEQvAFloIA/rb24Duvb3vira1NnIBTaQuJ8o/pPpohBCaAlPiiHcmmPzm15OHbF4qfY6VJKQKKLCoiYIhNBCCXAxPHLcVffurNb69uRjxOigksYSggRIgIFnuwcu3z6+m+a2bcPGl0kgSijLIUGMjH3USIEGEIieYsnuQCImHiHMgjODkVf+LtLX/30vbtXhlKRqscK2GjAgYrUnm+E+khOhLSBBKTvXzCJACiHRUyDB3HhsIAWAQ+G8BzrPgDG995ZPVBcmuEsmF8joCEACESAQcW2UFp7fKu9IqfrXtlwvavLFpwXlWpNmlDNoEoiriJEOE94J6hUpoYDARCgCo7nPU//6t1n3v6wPacchU52UAjFdjdbPkgxfkcgZ5UAhBAJAAzgJK4C4DICBkQF7EMQQiiQL6I7+q4a1U8tO7dP316Q0dJUlQACcNzBJDwlwXEOgjsDkK3Ba2p6sEduOX7bzzw1j5oX8NEQTURInxQiEZ6tJoA4pOKr9rbdMsDyx9et9+4pO0yZtcoEzhKmYTlxdDjNipSuQBACRNpaPuNd/cAAKeE0wY5BgMEMBAYMgaiBFo7nd3prz/5yv0vr2o1w8u8jKY0QCSUj9/J/1tIlDKOYjAYymhX7w5q/uDJ7X/90naPbK1IwB+g0sm/G8wY8f8HfiKG1kYTWmh9QIMVsYElP96w7SvPvtOcTlgxl8SIkFEQLQDAICE5TlNhiCK2FEistCAhxh9O7X/7kfM/M32cRhZgICaw6dit8sHO3AMbtv9o87btTXG4CQei/WzO0SLaClSglKjjnjG0HhODRJigtOv7AUzulpn2d6+9tK7U9pksUaQYICYIoIdyruR4oi+4zYSK/zQABY5DZ15RJqm8JzYm6THFqxMPiaG5AIFCH4LpOYc0RAMAneEVw5PVFEWQDv1eFFBfPy3H5lbOeLef0c2b/E2GA80nvR8CQVTRdQ0oNLyS6u/+z7IxWCCAiG+RCohSUMkHNxz+2q+Xtxqj4hXCKq/uhHqVHOOm43+DSEgJsW1iQRBo5Ru7ystdP6n2+rkjz61N1NtWANOWCQ6k/a0HmlfubVra0tHUqpBNKifHxFAKlg0CbIIW8oUYrKho8AAWEhDApPIGYKU513zxyNIf3bxwfKXtgS2jFZEo4jMjmh7XW+E5g+MeN78qQ1e9Ok1+FwiE2SilThl8GM74mcUoSmgbA+lTkunpEF/4bQlZhoTCeCoVztwZsYAQAMor4GepzIhI6HXo8YeexKhwWkzBwgIQlCJCnh1w+ucKG1BhyXE/okMRzxBI8mmDhN8m0QhEcmALpOmhNdv/5NltR60KsnJglmOGZzmelanXNGkirciHink5X3NACYhGugMqWxHXE+OlwyvidUlV6lqO6yRsqrbjlYkEQ7q8bMrI4XRuf1vHjgOd77Z3dWoHqgRaQwU9D5ynup6MiGPU7AQxj1tn19NPPr7wnJqkH3i2ss48G5NFmLQ18I+HNxTyU790wGwUqcJuDwKvn5ig0FyllIUeShrcUzADUKrnOcSHMJTd17VYWClF0CKBCEjRYLZEgQWoMCjh8UpnqkapUKmnUCA7Y6LJszYAIhERiCKrR2RARzrVcvhIJpP2/cBxnNKSkprqmmRJgorGaeCMH4gRwCa7aE6YiAZ7ZghEWMiA7NPxBYkxpI5z/b7XRBMOOHO7URWPrdj2pZfe7bKFlAUTC+2wPXJxP0SjIEZRoBV8JOArcApBe0OJe8GwYfOGV4xuKBmesEaUJRrKHdeybdgq/3UGTM8TKl/4cHfHrpb0sn1dj67ft60tjUQ8vCgJERMXDhtWhRvRFNi5eBZd86rlkdsunlRbIQyiM9VFROjA4SOvvfaa1hogX1mF80AJa0WO47iOmyyNDx9WM2b0GJ2vsGNOSTQicvBI02srVucCVZUsufqyBfF4ST8zKCKvv/765MmT6+qGDVY0EBEO/KUr1+5pak26+qpLL6quLO9v+xEdPNi4fdv2yy+/XCk1KJ2OQQQ62pV6ecmrgefHY86VV11eWhIH+Mymgl577fVhw+onTjxHEACahopoKJRMNYBsNrd67Zb1WzbuO3yotaO9q73Dy+WMMZZlxRy3PFlWXV01YuTI82dMmX/uNMty+xUoeik7nDP+66+uOnLkqKVw4fxZY0aP7217GKDmIWDWS19/40BzE9kWiepjKISEe9YheTl//JiRly6Y1xO/RgMnmjN1b0vBQyShkZaVKvne+q1//vzGLjUCEsBkBQGO264nv0USIiFWwgpsBLn2hOtcOqbyoxPHXjK6ZlJDjZv/VgAwRIwggNFQhqCELLEgPiAgZRONTJaPTJZfNq7h43NG/8uyDd9f2ySxSgoyYoUmDel9OgqMNhaMheSa5q57fvraI3dcNba6lGFU71Ea3BYloiNHmn/46E+17RLBULHBO3S0QSntWKo05owYPvy8c2ctuvaq6mRSjAGJqD7JhkgfPtz64KM/S+fM+NEjLr3wgnicIAzSx91kT/w0kf7Ny0tffXP9n375D22twAEGJNeES80C+PkXXnrtrc01lWXnzpxRXVnZ11AQKYCaW9v/8Tvfb+rMfOKji/MDDh7I1iYBEVJdHQ///Bdtnd0NVeUXXjI3WRKX4kjwQaxPkAQge+/Bpn/81vfnnjfr63/2xxB9hmWKAigFUcQCZVi00ql06rkXX3x9+Zs79jbn2GML0EQsLEJE4gdpP+hMZfceOrLm7XdeeP6lSRNGXnLpxdcuvDxuuyyGQEKhMnPyUdVQSuzfvLB0/aZ3HIXautoxYyYQjAxS6hYRRYq0PP3SkjXrN8fiseP1uOOurkQKen93d3rRwksuWzD/NIbrTImGjvuXIdK/3NryJ8+vT6NGWxkhYlGAgAawRIiJPJCLVFATx+2za2+aOeaC0dWVWocSmxBxKP+TJoBEbAAUWpZDU6oqSAGBUUBOEU8tLfk/N1y49cCvXzvYYdmuDw0teWtg77Vj+1q0CDmJNw5l73t69UN3XjTMsRmszsw9p7WOlZRqOy4S5DJp6dGMOE//wszGk8B4rdt2vrV5+xtvrvv9T91x7rSpYEa/u0spHUuUimXi8QSpU89mSWn1Cy+/XlVecf89nxpsxBARxWOxkpKSWCIxEM1LW7ayYz/++ZMNtTVXXLSg56zjAS4qRRRLxGMMtyRxZhal/MH2yuvL0x5v3bl7x57954wdJWLO5EcVRIEhAZGrlVr95trHf/Grjdt2aSdmOZb2oU3gKKu8ory8ooIAFsl0dnV2dHZ7HmnF2t64ffe67TveWL329+6+a9K4MQATWPq1fyhSbjwRKy11CNpyztAT5MRiiZLSWCzu59JB4FN+qdHx9iTVY2UULUxymqbooQnYY2EWsZRa1dz6hRfWdKfrrLhj0AYoiN1jSz3FiIjShkmlU3dMq7//knMuHlGtYYAuFofFsZQiQANyvFJa+G86/h2bxCPtkY4HUm3RDdPHvt64DdqFCIHkpDcjmolFi7CgdNgLe/b95TPL/+2mhTHFLDgNZbiXAT8wfm1lxQVXXALKz1do0WcRL5drb+/cvWdfy9H2eGnp1l17/+nfv/MXX/3KtMnniPhEup/Nn7c1CUR4APtXO2786edfKqssvfvmWwaioJ14ICpB/9/IW7ghMdfpznrffeDhqqqqWVMmiZietUwDGzQhERr8sj7egyUg62Bzy5JXl8cSJe3tnc88/8KX77uXSJ3JLg1ZRoyQRT9/6rnHf/qzrozvJisz2bSW9Pkzp82dOWP8qNH1DcMqKiqIlAh3dXQcPty888D+jdu2rVu/KZsRK5FYu2FrU+O/3f+ZOy9aMF+MH55L/c/hGdqWwiUjEEUkEGOCOTOnjR45IghMr3mVImWVBEE2M3ni+NAg/V5LNAVhy1KqOZ35yq9XHu4SbStDncI2pDAmp5pRUvCCYU72z26afv/csQ4A9oyyBOWK2Dr2A0QnUAxO9k6gjGLSrANNFtCRNmLHAksgPuCcfOmIYm1E+WBXmRZYye+/3T6xZvOfXjKzZ4ecwfyKBL6pr6/7wuc+2dcY7ms89OvnXnrh5Vfj8URTe+f3fvjgN77+5/G8ZDtEIJ+0kB378U+fraqov37hxaeipzPVrS033tqd+ffvfvev//Sro0aMZgneyySPwpXeWLmmsam1NFkhJG+ufbvx0JERDXVn5vpQRI5YePDxX/zkyaccx4nFdJDtuvi8Gdddc8Xs886LneAAiNfV1tXVzpw57WPXL9qwZevzS5e9smKlY+uWo+3/9B8/uD9jrlt4ofBZD+I6bvwFnu9dc8Vll104UIXIsNGD95CcacCeQHyBZvaM9w8vvr1qX6AoYawcGBALpEEEkv4eWoREAX5NrONbt87+8txznMAYpkKQncqHJvRyRPThrAAEKv8ipVgsQqNnlmzZCychcJQUHAW9f0vCMBTWIEDlbKMQb/jnVzes2LqPlPZIwmDn0zpVxRAJiWIfCICAkWNkAC/8X2FPwYwd0fDlez/18Y/eYHLZ0nji3b0HXl+9lqDkTFfeMVcuCSBs2Vag6L9+9MjaDeuIFJilP5Niz0AR9zeVx0siBXlEQRKJ0n2Hjv7rt77f3n5UkQVhvFcxkaHlsOlI64tLlsVitiWBbTvN7R3PLXkRAJhCw7Wcjg8+AOiFV5Y99uRT7JZmAnYduvdTt/2vP/mji+bMdbUSCUR8QQCY8CUIWAIRA+FZ06b8yRfv+x/3fb6+ogJQWejv/OCBV5avGaA+K8fV4T8tuul5bCXkBaFP1ghEYMI1eeKLhZmNOq3jdggig5UwafXLTXv++63DFEsKEUQJHNAABBkhEgiJ9jq/dvn0WyeMgmcy2hIQYCtAQwDVb4BJMV+EZismMZq1RSCb2v3c3z/7xvrOgIylfSWFXXASouFQFQWEtRsooyXdYsr+/IX1+7rTLrFQ9kwEVkAgAaABTVAEJaIkVA5Is5DAALj1IzdOnTje5HI+Y/nqtcxMQ3mahf4FdhyV9nLf/O4DO3fvgrL6dRvTQMXSExUfCMFneHZJctOO/d/8j++1d3ZS3kH73sT7CkBPP79k74GDrq39bCrnB3ASy1auaT7aCSIID/Y+wkABImvbu+88/OMnbNeRwK8qTfyPL/z+zTfeaGsrNAESKSJNeUUnjJVSihQRCYTZB4KrL7noq1+6ryzp5nKpbKb7YOO+M6CO05T1UDDRS2gCpb5eYVGF0xPrz4hoRISYteJt7V1/+9K2LrdGHzvxZKDLAArijytz7zxnLIKujO0zi2XCyhJ9DZEKXyKKOcyIUgJlSMAiJhAySoGg3mpsuf/nK7/79kEvXqkNLBPIAIPixGLLtzitddnSdusfl232jREKzjgU9tiao966dhjt7CdjzmUXL2AWrVVrS0vWyw1hpkg4pJqUCthVdkt76p+/9b3GpkMgxcxnY+szgTSzyTiJxIr1W7/9/Ye60llAHx9Xcfa2k9XU2rZ87VrLdUwuO3PG5NqaKpA+dKTz2SUvg06z6BmRynjefz/8k+aOlBaujqs//sLvXTBntgQ+mAmnjokggogx4p87ZfKX7vvslLEjvvoH99112634AOW/vKcSDVHG8N8/vXZzd0xrHzJIr74SUQLWrrZdG1Dkw4oHliHD1JMTecKKFOl5cf4/whBqAwMi0o7A2dzc+qfPvXnTfy//yeYuitcSC9s5oxgyILOU5TPIMjpmcQqJkgdWHXhhe5NCKSg46S0Ndq/njwjK25iJwkBCghgAI+prlFaKlOd5nucN5flOEAj7wYLZ8+rKKhyi3Qea/+5fvn2otUUpLfkzbUhrEvmqtqRm0WWXivh2aWLpijXf/v6DmUymHwv30FLNs8+9tPvQIVGqqiz5lfs+tXjRZexlY5b9wstLGlubT8NMGRpTn33hxbff2aXjZUEu/blP3jb//BngHFkD6rdBRESayNGkAXPx3Hn/7xv/+/orLz+z1IQzH6oB4b0kGgaHu4JB+rltB3+xpQ2JuGW6eNDjxAKBcve0pB/dsAeqtIy0QmAIwgwxAhYYERTkNyPCEDCDDSRQymjFQkIEB+QLVu1v/vozKz76g5f/eWXTQbdGlTi2yREzKxMUt5g7BQECYhltw8rYXneGSh9Y15jzBQjk9AlG0GPkEJAcP/g9Ya8aQFd32hgRiFba1vaQny7pbG7mzGlfuu9zLhnbdbftOfDN//xeezqtyELY92ZIjSTa0J23fPTmG6/00u12PPnSsjd+9MQv8s4T4dBJdRZ0JgbU0c6u11e/Zdtu4Pvnnzurvnb4pfNm11eUAtxytGvdhk099DsIeRCgdC67ZNkKy475njd/3tzLL7mIxYRHxQANavl8sVC5FEk4togB+L3klaKDu3iNUl+v91qiERgIiTBR0JbK/ceybSm3CpLxlV3sZx+gRQoQKM7Ekv97yZZ/eGHD3q4MXHG00coyymLSAWkf5AM+4AGGjKIcIUdalMVEBqTbM947+1r+e/WuGx5+9orHXv7bN1t2mhoVd7VqI/i+tpkIRg+8v4pnQSQQzua0y1oobv96a+uPN+9WpMOml4M00FJPgQsSEskb846bPBX20iSbgXXvbDdQBpwoSbjuUHqdSCBQAZDNpc6bNeXez97JfjoWi729Ydu3H3jUCwLKaxI0dBdkz2Q08T133H7tZRcGuaxTkvz18y+/sOx1gEQY4IEamQe6PgvmMDz/8tLGw0ccpStLE4uuvRJAfU3tNQsv9Ywv5CxbtsLzvcE8LIXW5U079u4/1GorndC46fpFMcshAGQTBprZQaHvmAoJqvzeVsgvsrsRUz5qnwncn7XuDLS603NvW6xIsQ9tP7Nj/2uN3UjWkfHkmJFvwEOWD5IwrKXbTv7Ziv0Pbtp166zhF08aOanMGpZMJrRtQR1vgNIBq4zHh7q7mzPZls6uZY0tv9nXdDCHdGepSjuOPYziFtgIG1Yu8qd00HMtQXEyN/exMMgHGGLBJIztuX46h9J/3Xhg8bThNc4Qixj5mFkhRQqEtzdvW/rGGzqmg0z2nIkTtKVEzNCuwp7gG1x/zdXNRzsf+9kziVj5sqUr6isr7rnrdkX+kOQBFflHyPN9gvrKF77ged9+dcVa13W//9AjVZUVc2fNAAI1pEJU2CEDZHVlMq8uXwWiTDp90ewLpkwYH37gqoVXPPPKa53d2Xfe3bF+y7Z5584cxAgLQHhr7Vs5L0PaHj9m1OTx4wr6MD6Y7TQs1RMj2f+8U5FuN8g0+tMiGlGemJhIhtVjb+8MYknA04IALsgb1FhL3hcjMFqEELO3ZfU3XjukVxwZnaBh5aU18fiwirJkImNpw8YSQwe70we6012pbEs61epzJrDhWeAk4MLq5pIgKymkDNiFAjSgNASwrEKBCMk3lurfK6byHxcgcI10I07r9+R+vXHfPXMmDioXrmhukOcSQONYJkJhkgFs3vbuf/3ggWwQaKKaRMmiyy8ngM9K8Yf8o3/69o+3tnY988prsVL7p795uqKq/OPXLULY13yIiIZ7mN3V+su/f097Z+rtzdt8o7/1vR/+5de+PGHsWDaB1kNj8A7rnBEBZC1ZtnT3/kO27SRc95orLwcELCAMr6+9cMH8p559kZT+xdMvzJo21bGoJ+X6lBytWXjPnj1KU8D+mFEjkvEYxD97NeTOmkHmmM7UnfVTmYyYnChb8pUEes+iQDw2cdspcWKnIfJap7lEiWDF1u1qXn6gDW4VmdAzok/zkUWUKGEFMkK2uMrA351L7D7ogTvB+0Aa5EJssN0jdWpYJQAclbAciZdQIm5GGKtcl8Ri8ZyjtMmR+GkxqRx3eLotE3RlvEwgRmulbCJW5EF0oPqIzMnbjAVkwE6gNCiHrPurLQc+c/54DQ5IW4PZ/gQo0plMbve+/UrlOU4rsrX2PM/zcs0dXaveWrfijVXdQWDZtulO3XjLDeNGjwhJbYDb4DSsbVBy372fbO06uuqtlZZb9qNHfza2fvjc8096yJ+uot6T4Qz2y0pLv/SFz//tP//7/sbGw81t//Gf3/vzr/1RXU0dYIbUrUtGzGsrVvtMJpe98por58yaISZD5EIYRIuuWvjqa8tTXrDpnW3bd+yYOXUKDzRjk9KZTFd3N5QCBxPGjRmsEP8+oxtyXfsnv/zN008/C+ML6WN2xOPMUhBIzkvf9pGPfuS6azF4/6R1WjdnLCgIPb1pb4cqgYhABYqA1GkafYgMCRAoCZTYAiVESgIb5CUSTAntiQl8IAsn48ZUjSOjXX1+XdWk+uTImpJhpSXVcac8Zse15WitLSs0PgUsPolngpwfdKW8d492v7C77cWt+7Y3gxOliGUpqxQYRBzWgpGTGf5AoDRYkSSkxHvh4NGX3j24aGJdFqZUYgMOYINi0lZs76Ejf/53/1Q4fJVSRIrZGGO6s16W4djKN0ab4KM33Xj7nbcIhMiInIXTMrxxZUQo4dh/ev+9f/2Nli27D3o69t2HHv+ruuoxI4YbNorQE6rPDIsHv2CUiDJhjy6IEoI3pr7mD+6962//zz95Ym/adeDfvvfg//eVLyRLSsLiFXKGhTnC4oukN23bvH3XHstJuCp39aXzCBBlgVSY8jFp1PAL5s9+aenrAfDMCy9OmTpJh9IrnZhu20sp057npTOekGVp1NVUhx4NUviAlrVXSrW0tR82okEaVFxcgUHcc9gIkEl1tnelAYgyg81COB2i8clo0L6mrkd2NkKXgb0h43MyTFqIIDBkjMXwfcpZlbGgpornD6ubP7p2VkP1mGS8Iu6UxdRxQXcBQ4eGFS9UjGyFOAMKcGzE3Sk1JTdNrN976fhH1u/7f0u3HjUJsYiYT3Xz0sOeAWlkc+bH2/Yumjy6NPDYGkTpJAl910basl5+QYeOZMmXGoASosBia9LokbfdfPNFF8xRgLDB2Wxul69RyKasrPxPvvTVr3/j/+5vbdvf1PzNb//Xn//JV+srK1iCod49ZCQ4f+qUz37yzv988MdurGTVus3ffejHf3z/53W+gMaZigdEioGnnluSzXmKZP5Fc6ZNnARwwaEugCK6adG1q9e8lc7lVq59a8fefVPHjB2gwTPsEx+eE7FYLJQLPrD2GYggGbO1tsJQE8mnQOfleSkimqwuSeRL2Az6UU+HaJRoRer5xsN7u0CWkgGlTPb7oHmVUTGVgQgmCy8H7Qxz1PRhyesmjbhqVN2IqpK6uANkAAtiA+yLD7DO+4wJWjHsQj5SKIhrQAt8IgNjwVegMXH3LxZMq425f/3kO4etmNgDEZjD2oABQUQll+xPb0mlprkJAwzcLBwGbju2VVtZFqZrW9qybAsC27FLS0rLK5KjRzZMmzhx4tgx8XgcEGOMAqDOYlsGytdyVMwyfETtV//g3v/zzX9ry/hbdu7+1vd/+Kdf+mIy5kpYQShkxjOL8siHZQuDgo9ce21rW9tjP3/KTSRfWvZGbXnl5+6+DQgrv52ZKZrU9t371m7e7rquxXzD1Qv1cb6g/IBOGTd62sQJK9dv9ILgpZeXTf3c2J6Fg34F8zA6tmf7saAne+hsqbdnl2Ukl8vddddtl8yb6xsOvcDSq1xUTzRwYLi6tBTMp6G3nA7RaLF8lif374XnupZkSQ1eZyu4mQVK5auXMpDuBnL1pbTgnJrrpzVcXlM3trIk5qiezxuGLQBgiKBhsRQKGgKApmNVMnURRViABgNEsMVYpFJ3nDfiybcOP9uYIdAANOzQpGIAUSpx4HDX89t2TJt9Lg+GXwXied7Ecef8xZd/TynFwpbWWmsAtuM4tl1k4RKBDxBpYhBA+mwGceUfXlEAM3XapC/+3if/9T8fECux8s23f/Dwj770e5/TZAkbGiJjLYg05WvLf/LjH2tv73hmyWuOG3vyN09XlZd/dPG1CAys09dCwm8+/dwL7V1pV+vzp08+Z/zYXC7LHHZqZ5AvEBLbsez5s2ev2biFLP3a6ytuuvrasaMamA2dwkMtWlthx0Fmk8tl8QEHM9dVVw6vrxv4F94jiQYKW1paV+5o0XZtzs4hoD6yYfopRMpKoEEMMcQwGl4uTsGF55TeOmPiwlG142oqYmE0FwuMkfwqJ4XjqtsQHfcI1FcdJoDy25h8DYv9UhKTUNBpoXg+2aW/vWxABLGEjCafGct3tX11NmwxgBqImUYAo0TYuBZVVdUcP0RU9CnpsbRrHBvRs53Lm3d3axEWs2DBhdfta3zsZ79xY8lnXnitKln+6TvvgKKeg07O7FrUo9srw4Ftufd9+lPd7V2vrdlkxawHn3g8WVN+5YILjp1bdEx07x8GSsGQBCB3f2PjW2vfjFvKsrD/8KG/+MY/GRPKKWQVpaoTWZ4JnJjNwu3tXa+vWDN21Eek37QvgSYg5sYTsRgJYLjpYCMwB+qDpzZJTzUCIvLzPsZA8gtP+t/+p/Gwp1km4q3GlrZOo9ywEuggr0sGBGFbxDLwkWmbZdGtC86ZP2XkhQ1l5Y4GsgEyIjGCMjBEShVLQEUq4gkh26e+E9swVGJly9G3DxwmuMDAQ+/C0tgCXbqlKX0onWpIOIOO/xDhvJhVqO99kqtgUI80pGqUAJ+45WMHjxxd8urKWKzs8V89X1ldd9M1CwEhDJG9RsIa9JqFE4nE/b93T2v7d7btfRcK//ngg5UVVedPmRh+imSgkXw9LXUUgKdeeLm127PiJSzekda2A81HC8tHFYVNGWU0KGbZmizHTTz/yiuXX3HxqLrqU7n2xXWs+rq6bbv3gdTOfQfwwcd7kPWgBrE2irDycA6qXCx2xSYi9FfTRIpeAESxTUFSAhVk24clMn919fQn7r/hrxadd92YZIltAuOz7ygTExmSev0nDKhSKXL+aemm5m5fizO4MRYRYnJiOztlTVMHoAexD3p+oFiJeH8tNwrP5cC18MXP3j175pR0Ji3a+eEjj7+x5q2wvDQNFaXlocV4tTVVX/niPXU1VSxo70r/239+f+eBRgCmUPd7QD8pIgyyDzS3LF2+WtkxAUgkbqukayUdqyxmlcWs0phdeMUTVBqjhAh8XznOoZbW5avWnNJAIxIAmDFzmiIhbe84cLg9lUbURnnIJBoBS1gHn456udWN7dBJpbLaAyw5dTRh0UZnJci0jypR91464dYZY2ZUlwGBsDFiCSnSmokJJvQRhGn1p825YfiWCAI2JLAtJYS/eW7VU1vaEa9iQ4PLLhESCpTycr5etbP5I2OHG/GU0kQfjnVGABOMsF9RGv/j++/5m29+a/uO3eTY//WDB6rLS6ZMmgzhIdxTDGgCjD9u9PCv3H//P/7bv3elsk2Nzf/+7e/8zV/+T9t1TmPeX3zltc7OLm3ZyUT8K/ffX19ewoEUaqeSOjbdngocJlvFf/bMs0+/tlK7sSUvv3L1JQuqKyv6uq6ESQPAuefOrCgra0v7+w81b9r8ziXz54iYnnqHEc5AoqGeUwPAntbunUdaAUEgGRXWTNIQhV7hHhQm+BDYsX1HB47DMXhQ4t0xt/bJT8/768tnzqgug/EAgbKUtmwiC6KVKAUVJtsTTuFx7CUwHXs/MDABEYv4AmLf1tLJ6mvPrP3mqia2SiCGlT+wTGXVk6ykoBSpAOJuajkK9gXEMCw+uD9PNwnCFW4KhadZDITfX8syPDAsUjGIGVZb/ZX77x1RVyXMTe3pb/7XQ3sP7E/EnLBjzZCwmgJDaVEKwrOnT/7ivZ/SZJQb27Jz/3d++IgR29KWiF8U7a76HuGASB8+2r502avKdo0JFl08f8HM6eNGj50wftw548edM2HcORPGTRg3ofCaOmbyhHGTRo8ZdefHPtZQVmZptetQ04o16/pRJnqMfTyypnLK+FEmlzUmePKpX6WyXURK8uVKaMA0yz1F8ntC1oXf27zK9x/R5HV4RYDe1dLRlfGhwGE1nL5GVqAEWqCZiJQjthe0T6rofuy66Q8unj27vhRIe+KJCgtBierJCqAea2gfFHKSyT9ZQAuTGBIY2C7DdhJr2lOf+dmr/7JyX+CUUd7xMXhBSXRoWWns9tPCWg2GqdGr7cL7U1UnQIUlZCaPGfmH991bkoiR5e4+2Pwf33uoua3Ttqyhul6hGLCQGBNcfsGCz336TuNnrHh8+dp1j//8yUDh+C6j6FdwpteWr2xuaQNRZVly0VWX99jETv4SgSAQBMMb6ubNmull0tpyXlq6rDuV7mtfhF4PFtakblx0TdxGzNGbtm7/1XPPA4oG1yqLWMSwhN5ynxnQIsWp1L+TRCMi0lPqbU9XFuIQAQqa+zvGIVAsimFinKHG68eW/OK2hXecVxeTjBEb7DhCZ2KqkCLjUa/58cgFtMUpR6XTFr795ua7Hn7uyS2dsGuV+Kc/nawEDB0cStGBnE/EBA2xepKzPzQgpZQA82ZN/8I9n3IQWNraunv/rv0HLWuI68gQEYGU1oB87NrrPnHzjX4uFYh55dWlqUxaaQsDcuvpo52dz7/wEmmb/dzlF81rqB/W05y2f/uxAbD4uqurS0u0os3v7ly19q1T9GEkBfDs88695IK5Qabbjpc99ounX1m9JtSbBlzNhwj5MOjVG7f85d//8+r1m0hZH1KeGbhEkzfNKkAOdueAuBKQ6u+8EQIrChSMpU1H523jqx+67dLpw8qyrD2KhcUBDNln2EeDASNsji/IKCIWRJEtuuTlfe2f+8Wqr/z6nR2pGl1SYavcsQik0+G2sBGD35LT73Z25sdQ9IeuMBoBQjCQ4KqLF9xz50cpyGjCYPtbDnIqPUjuU7ffsujKhUHai2lbs+gBGIRD1+eKlasPNB4SbZclS2+49sr8X06tyBggN2H8mDkzZ6YzGTj2y8te9XKZ/q8aJtx/5q7bxowanjaUhfPd/35gxaq1AFTYsvKUhCEg0pZSm9/d8d3v/2Dl25v/4f/929MvvEjKGoQF/ENGNIVyOAomgOxKB1BGVCCsTV87Vgha2wiUgIPMwnPKf7D4ytq4zhDb5DrQGiyK5fTqkPRoVCIAKxPAGGYRY8BimHNESsFbua/xy0+vu/XRtU9sOGriddAxg5xn+UxnUpXAAATSXibd2JYLxV2GfFAmvVD/ZDD369+8+Mbbbro+m+4SCKDyFtGhVtwUNIG0Uvd/9jMXzp3tZTOAFtGFPorU28gRJmoykWpPdf/6hRfJcYIgu2DOeaOGjwhbYPcnulI+OTjcBddcvbC8tMzWzvrNW9es2xDGPfQ1TgQS8etraj/ziTvixA5JKp3+l+/+5xO//FXW84l0mJQgxzWYz489JLx3BWDJa6//47/+e1NzazweD4LA1gNrTAQiMRb5AJC//z5efQdzF2dv9wS4Wz1FSFV/Lz4dqcsa5KljMkYf7M5BMZMPtkSdfFzCDGuILYZqY91/tujSZJI4CBwd0yzQBHL1mUsB+fJBUESKSGkD6Fya39i377Hth3+1YX+Lb6u4q+LMyPXUjtNnZMskgzD7jNPtnUF48jN9kI4XGtBpWChsEbaGkE/efmvL0baXlr3hxErPWgyhItIAJx3r/ns/81f79+xv6SQd66tha48viQC1Zt36nfsO2G68zNUfuf4a5DcR9UuJcmyXSXDuzKmzZ05/bflKS6uly99cMH+eJtVPDGxo5rt47uxPf/yjjzzxc58oy/KDx362bvO2xYuumjFtSllJycklEKKsMZs2b3x56euvrlhhlDaCEgu//7l7rl14KZucOnVNRdEKxgSG2WOD49c0AYZghDXICRujnGqyTeAbZhOmU/QhjAmEBQ6UPi3VebCGPQo8P5vOARaEQEHfFZKEJOdzBUxq8dTqq+trwBljac2DrF7eN78AIDGW5CzLAtyMn9vZ1LayqeOnWw+9vKctEBdOBWIWmUAQDJWoGYYICgGkw0xW0IeymHSv/cy2bX3+s5/u6uxcuWZdPF59Vq8WiAyvrvryF+/7p3//7uHWbqDkpItfhXIBqc5M5pnnXrKUbXx/7vzZ48eMBgYc6hc+H5ECrr/qsnXr13tMq9auf2v9xnnnnUv9+YAIEIbc/tHFpeVlj/3iV0cON7ux+Jsbt769ZdvE0SMvmjfrnLGjyyuqbNvWWrOw8U1nd/fu/QdXb9i8YdPmwASWttkPxo8d88nbbr5k7vksTAPIoVVEpJ2fP/X8i6+uDIOe9fEPFCj4JihPJD//mbuH19X248kikOvYTz793LI3VhjmflQyBrKet/jKhVctvAwIcHaztwk5z895Pd2dyQBy0nLfQhBSsYCzFNSVJgkE2JZYYRtRddzuPOVOpRPcIj0p+aS6TW5rS/fre/cuWf/uqqZUM2xYZUT1ruoUpP1AG9hQCn12gKPBEB8VsgRAdkcqM8BysyISGBMwGzZDuy+ZOTAmYGPMwBrFGw4CA+HBdBlRgMD3K0oTf/ylL37jn/91044dA9G98k9tJDBmUNK2JgHMrKnTvvqlL/7dP38rk/VE+hFJsGzl2o2bt9luvCwRu/Uji8PDgAiDOQEUczDv3Bnz557/zNJVEHnmuRfPnzHNsqy+f0QBIGEAN1xx2azpU3/25K9fX74mkw6Ucrbv2b995y7b0rbjKKW01iLCAftB4AVBWDIzCPzy0sTCq674xO0fryiJ5+vx9NtZSCDGcGBMoNX2vQeN2X9SWc8o5AKvsrTiE1m/79mBEQkC4zh65/5Gs2dfvgIq0UlJhIF0JjVr2vTTkxIGTDT5UCTifP/dfNZvj/4pJ9uTNimfiJe9c3DX7CnjyxLk+UZrobAuqQIpCtlKFKOIB/JNN/MpSAIhYSjVo0tKTrx9Xd6+5q6N+4/8dNuBDQdbuz0HThIog69AvridOSqBT5AsyIOyAQvC+YrgVmGdCDErFoBE23kbHvVvaVP5DFfhFOd7qio6RbkI0ro0HnNFEk6MeloZ01CIWEpbyUTc8oKSuFN0/PYh/IIScaesNAYRbVsn7tj+aF6BjVeeTP7RH97/L9/+jgTeKcUErazSeELbJplw88lqAysVRnk2D+ZMm/p7n7rjN79+6qSSRbggO1Op15e/miwrIVbzzz9vwpjR+YkenNGURYyCteiKK9Zt3pkz/tYd727euuXcGef2HbxXmEER8UbW1v7R5+9dtPDK5156efP2Hc0tbeksAgPPY+aAiJiFoETEUioRc+pqq2ZMnXTd1VdPHD0SgGEzoGg/kUTcKU0kHNcp6Wv+RETBC/zyZHnfLkIBUOLayZJYLO5KPFEkItCJp6+QkMBLx0oTJcfOnsGs314aWZ9GE5Z8im9jR2rRQys3d+lTl9MjA2gNManOq8aV/uV1cy9vqAQCQAIICytYgAExwQJ7EOOjPFxlSpELCnsksLCf9buzQWs225bNHOzMvrHz8Pqj2RZfK+XE7XhFIl7u2jZYlwR2zM4Xp2Yn8DkwhgNO++1Hcx3tWaR8dKV0rtvp8LOsCEoToLRi7ZPlk6ckX6EJfffEJMVCpIyXvvPccT/+2BQRIdI9Qy8nXcJdOa+1pZVE2bbdUFtBitQZV5kRYYZK5fy21lYRsRSG1VbbttOP7EOEI63tqUyWiMorystLEgoDktWLTlQm6FSqUynlxmJ9PgV7AKWy5khbB8PYGsOq6xzLBgAlg3lGIcKRI4fLyitcJ9Z7IwoE0plNHzrSZFtxMqgprygrKc13Kh2kjZ+FCTYC1djckuJA/Fx1Wby2qnrgDsqelYDm7u4dO3Zv2bL90KGmrnS3l8sJQEQxxymJJ0aMHDFj5qzJ40aVJdxjjDWQOD2RwJim1vaMz0RKiemDpvNlBbTWdbVVrnWSyHUWBuNIa2sqF7DWx0UZ9pIe89GSpADlm/KKirLyUsrHrw7CxTRoojnQnrruRwMiGiVGoEEWkeZMutbqvuu84dfNGj+5LNGQiLlWuEp18X72YTyTy3lpNoGYWNiQpKura9/R9gxU2gQcj9c4iTrHTZS7pXZQorjEKsGxHAW7iGu9nskTGF+8wKd4mnVLzt/V1bmtuWvt3kPvNB/dlnE60nH4lkMZOBCl/Lx2c0qiSd05a+yPb552SqIRMSKBUvGeDR+AMAREAwn7k/Y0fkQQeESk+zDW5ZV5XfCesmHTk+ExiJ0vIkpZALNwn08hnogh5RQcGiL5ojYD73cQlr8hEJEOO3b3vtXQekRQhbXIPozA0oMPXxCWvBh9rCktM8RgwMbPfAdLpYqrzwVs8jFoSimldPGIibBIT7OkUxINgT2IQMcGSaBy4jSxMImm06l0FLCcUoQ/U6IhRd6hrty1Dy7f1EGwTnmXrEQEWsgFEdiDnwFZoxOZ8RVUU149oqo2bhmLO2AChxxSrtaWzV6ZS3UVyUmJWFnMdWIxS1vKUXHbdqERAAigGeT0PLYHsAiDxISxlflntQqVZgJlC5QNY8EPbfbh14/mvEMdnSt3t/xow4FXW9IiLoGEOF8fp0+igSIKvNTdsyc9ctM5LAzRlM9IlD7saAaiQFZP6M8QW0+L57Ev4ujJUO1lFDsrzrKiIkF0vLvgLEcbhdxEp6GV0kluMozPGXzIlQjlmz3nyzMe98uSlzhU8YYcSMBAvu56qHXnuyaeXFEvnuKeunJ0UtObgIF+miQV2q6rvAQJoVPrTepMjMH5Qna2bTm2ne/TTn01GxNAQVksWcWGQBDDmmDFVGD2eaX7GgU7OhB0wJZh5d70avuSMcNm1lWMqyypSyaqXO1qUpYrIIYwGwSiPAmsQFmU4wAithhNAjJAXABRIhBbcsWEEGY2AGSxEQSADuAagEksCbSYSlsq65LT6uK3zRv1i21H/nbJzp1Hs+TGwPlQ8D7M1CzQIF0WCwWoU8QES5j/QgogGtKdLT2FEaQQT3Dqr+TFZOox2Z+d/a571nbPCqHjC3wMLc32WBaYhPN5d2fyiywQgMKoBT34SZG8BZN7Rvi44HXBaUZDCCnOFx+Ufra6QBVZO6Vfx1lozDaCvqIE6Tjfy7FimBjseTlwomEweUpcbZXEHDCTeKJ8sHNMGA6PTBUQE7FSzJTXERQL+T4JwMhaZEY61uSRVRdNrrtgdMW5lSWVpXG3twiQ3wYKIkT5+GEiAHHlCojyJaNU0VFAoNjJy7lQXvqyACsfl07HSFp0kvCZqeMuGFF7789eW34ka0sZUwZayLOMYlFFfEoC5bHEwe6kuAGUIsUw/XSA6Al1H/rDvLCICTjl6u05084WuZxgMJdjI3b2ZCc6bij06TbiOH528p2z9elOStGaVCfeLBXleA1uVMN8QBS5XvtdFSiqDteHoB0SqaZTc7kU/dLprB9rcJQqJm67w0pccKuQnRcM5aTyjGiRQNk+lAQCCZSFmTF98ehRV06tnjEs2VBeWq4DQAAHBafvyZTGE6S+M90qdNx/kxBYRPzclNLY/71pwccfWnLQc0iL7tvxBAjgV5fYOPsV8CJE+BBg4ESjFCmLREGNKNFQWZCtDRndu5KTiCiQkMoqCyZH3D2mPH7buIorpw6fPqxydGk8f1RwFr5Aa1aBKGIogrJO7iY/uxARRYqVIOB5tfFZwyoP7vLEEpGTFmgkkCWGbYvry6y8OClCKlpLESKcMdFIWIxGDMiMKI+DfIAsgeltxhBAsShksuXcPXdC3V1zJl41umJMeRkUAcYIiI0iE5AEVkyBbNPTEbJ32/v3FKR1ThMhJUEAOMQ5JlYnSXYJ82tMWcIZWVWKSJyJEGEIiUbDMCwgAdCwJIM12A3swPUo0AGrfK1+ESBtanX65rkjb505a97YhkpFgM9smElDqTAfjZSCsnGsaO5vqzSZiBLkDIQ45qpgSytvPtINq4o4xirIy2tSZPoio5kZqq7MaYglwL4IEVkCpqieY4QIQ2GjCcuLmXE1NWX2nk4O2PaUWA5ZmdBum8nWON4nLxz5iVkj54yoyUfaCAs5ShXsWPloikJdcfltbk8RMj5siB+jTCqI/c+XNhxIJcj1WTPkpOHnAtHwzegyKo85wn5ELxEiDJ3qVMgrF55SWzW1rnzVwS44vtHxQCeQTiWCrlvOG3P//IaLR1UBQCCifILu6c5w0sCN337Ws+LACUg58U4O/uKXq57aegSxBlAniPtKrxcVA3dNrdCKiEmpAmdGjBMhwtBINIoAVNtqyojyVQfaAMcHSffBqTWJv7581q2zRliw2QSiNDRriICIQMghZJz3FUQCEQJpxzTlsn/49Lqfbzlcokqz1G3IUoHmPsLYDWwoe964ulDjIyKRyFITIcJQEA1BgUSEASJSM+scxSnmkci13jyx/Os3XDyrKg4/zUoxEcBamIkErHvHhr5XNBI2ES4KLhIoCIWdy8PYAUuRQL+0+8g/vPzOksYsSipMwAIfclz9bRIiUaw1UY6Mx8YbWY4LGurCIoHqA9gINUKE961Ek48yIhDAlzTUliRKu3KZ3581/P9+dHbSAiMD2yHpCXMiRceso/q39Xj5fBlRJEoIPjEJOYHAZiFrdVPLD1ft/MWG/S2SRLwKQSZLEtblPI5oen4LBJAFPzVrfMnYZBlEIoaJEOEsqE75kOTM7GHlM+sr27OZb9xwbqnFYIhyFOvivjm/bc2o5z9YfGJSvm18FxpWHEqvP3TkwQ0HH93Q1Jz2ES+D0hSkpI8QViYiCImvQEa5hI4rxo3QIDApzZFtJkKEISaavJGCLVvn7pxYFXet6jjnAtfWisFa3nctafIJtYCtAMvNQlbuafzZO4d/vW7f/hRQUmLFbCNGgkAJMVl9tvOBaPaJbBPYwyrKrp82CsyiFCKaiRDh7BCNgLQR787zR1uWxWxco1gDYNGg99ziG+a/hQ20KW+LQZhtaUGUUmGR093NnUsPtD25Y9/SHU2dmRIkqlFu7KATcIksETGw+kyPFBJiItG+4+dSF55TObm8SoIcW7bCQKgm4qIIHz7I2SYaKCKfY1UJJlIeaXGzLmw70ADBeq+FGhIIcUASgG3RSkCkiEjBB9CY9tY1ti/Zs/fFrXu3NFlslcOptWM+kBEho+OMoMc13XeRTSGQsLbFd2zdcev0GlvANChxJuKaCBHRDB5akYgSEYuYxChRhogBK++Weo/2lYiEdlsLyhJApUD2UbGbjqY2H+5etfvwS9sPbukQjwRuEhUJHYjmwITJ1By2RMj3UeiXCgyxGG3DdF06snzx5LEwHokDTR/WBqa/o1snciC+r2w0xXzW1pGqSJZpZRkxHrEyYYfP05gtOg2aBJhVkA10c0emqSO1uqVl/cGjbzXmdh41XZ05sEIsBofgZxEY2F1GkSErrBqhRYhZE5jg9R9up6GNCgJ2uPPz551fpmGElSHASCHrv+/nMsbs33+guztFBNd1R48ebdt2tKB/WzDG7Nq1q7Oz07Ztz/OYWSklIqNHj66vr4/G5/1GNCCQVtbKnXte3tN8z+WXzKpMOGSgDQsxSAoVgyTMM+CeIjoc1pkhoKe4o4CE8pqLPahbIIFiamxre7Ox6YgvnZ16eKJqxLSYEZ0RL2W4ozvjpzo7gmRLYKdyQS6L7pzXnkuLoQA2LCtQDKVARAyxDBiKtZASZSBCQgTKlzJKd8+fWHXrzPEwWV9ZjgqrVZySL0QpbdvOkiW/ymQyt956qzXI3tV9lc7rqZj3YSassyFiKKUqKyvfeOONPXv2zJw5s7q6uru7e/369R/5yEcionl/EU1P4VeBBLMmTv76ksaHNrxw+6zq66dPmFlZNrwiEXc0wPlQYAKAAIrz3bhJUUDKF2gTzrsoCyqftqkHuQ5JC9SEqpqJVdWk9YmtKvIlgCTw/CATIJX1Grsz27qzWw90bG/pPNSZbcq5R7oz3emMOA7Y1USsAlhGGw2jjAKUCMiQRVZw5+wJCZuEXVcIxAO0fBPRiBHDq6urjx49Onbs2OKusul0WmvtuseV/cpkMl1dXa7rMnNZWVl43obfam5u7ujocBynpqYmFosRETN3dHSEDT201kqpIAikB2VlZQCy2aznea7rZjKZ0tLSkOlyuVxnZ6frukop27YBBEEAgJktywp/PJVKpdPpWCzGzPF43HEcEQmCoL29PRaLGWMSiYRlWUSUyWQymYzrukRkWVb4sfDXHMeJxWIi0t7eDsBxHN/3mRlALBaLx+P91B4N/5TNZpubm7u7u4mourq6tra2+K8i0tnZGV7I9/3wHcuykslkX9NRU1MzatSoffv2XXLJJSG5DBs2rKKiojD+6XQ6kUgYY3zfN8ZorZPJZK8TgpnDT8bjcd/3E4mE4zhEFATB0aNHXdcVkXDQir8VBEFbW1s6nQ6CIJFIlJaWxmKxk0q4zJzL5eLxePGAiEiv6TbGMHP4p2QySUSe52UymVgslsvlwsHv9cttbW1tbW25XC6RSNTV1ZWc0OjO9/1cLldaWlpM9CLS0tJi27aIxGKxeDw2KP3jNCWaUF8Q4bHJkq8tnn/3o6u/tzn9va1vjXKs8VX29LrY1Pry8+uqqhJOpasTWmxbW5ZlK6sn70kLnPAJjJ9JexkDY7sl8cEVXg4rrQbKIoGwGBK3p34kiE2eE4kEZDtWzEFlwhpZlbgAgmkjAJMz5kCGtjd3LdvX+MbOQ9tb+UjOgzEILKWsQBM0g4zDjud1XzOt9tNTx0GyIPu0z+cgCMJdHeKdd95Zv379bbfdVrwrfN/fuHHj+vXr582bd9FFF4VZDl1dXUuWLAl32vr166dOnXrllVcC2L9//69+9auamhrHcdLpdCaTCbdEV1eXUuozn/lMuPKWLl26Z8+e2bNnz58/v3DpV199dfjw4QDa29vDZaq1bm5unj179oIFC8Itt2LFim3btk2dOvXyyy8PN5KI7N69e8WKFePGjbvmmmvCjbRs2bLdu3fX1dUxc2dnp1KqtLQUQFNT08UXXzxnzhwiam9vf+WVV1KpVF1dnW3bBw4cmDt37kUXXdQPQYvImjVr3nnnnfLy8srKyq6urldffbWuru6aa64pbA8i6uzsXLp06dGjR6uqquLxeHNzc319/c0339yvys1EFBITgLlz5zJzqEZ5nrd69eodO3aUl5eXlZX5vt/d3R0EwbRp0+bOnVs4FYgom82uWrVq+/btkyZNuvzyy8M/GWN27ty5cuXKcePGXX311cVEs27durfffjuZTNbV1SmlDh8+fODAgZqamttuu60XHwE4dOjQkiVL7rjjjuIrNjU1/eIXv6iqqnIcJ6S50tJS27ZTqRQzf/aznyUiY8zatWs3bdo0evTohQsXFhNNOFAdHR3hFBw5cqS9vX3+/PmzZ88uvnQqlXriiScuueSSadOmFa/eI0eOLFu2rLy8/IYbbojH4+8J0YT7mTQkd+OUio9NTzy51bdUyf5cbv/+7LI9GeiUdnOlVlAlHdWW55Q6yiXXUja5TixpbB1IwKm0n87UluqLK63rpoyf0FAxeFGZiCwU5YOjpyw2K+qpfSckpBgSxgkTkQore2pXy4TS7ITS8uvH1XgXTdvV4a3a1/rTTfuXtqVT6SyMgGzXIyG2TecXZk1LWmBR6rSE+Z5i972xY8eOJ5544uMf/3h5eXn4TllZ2bnnnvv2229PmTKl0NLg6aefPnLkyB/8wR9orceMGdPW1laQiS677LLJkycT0cqVK1977bXFixdXV1e3tbVt2bKl8IOjR49+++23x48fX1jQtm3feuutNTU1zPzAAw8YY26//fZYLLZ79+7CvdXU1EyePHnlypUjR44sUKHjOOedd96yZcvGjx8fnrfGmIqKipAufd9/8MEHhw0bdtNNNwHYuHFjgRHGjRu3YcOGgwcP3nbbbfX19Zs3b+4lyp2Ip556qqmpqVip6e7u/s1vfvOjH/3o7rvvDuU1AKNGjRoxYkRjY+OnPvWpsrKypqam5ubmgcxIsXQZSo4AysvLp0yZ8sYbb5x33nmXXHKJMSaXy+3Zs+ell15at27dLbfc0tDQEH69urp65syZa9asmThxYmF8XNedM2fO8uXLGxoaioWF119/fdWqVYsXL544cWLhum+++eaaNWtOVIqJ6K233tq6devu3bunTJlS2Bfd3d0XX3zxlClTiGjt2rVLliy57rrr6uvrOzo6Nm7cGN5/PB6fPn3666+/Pnv27HBRhV9vbm7+yU9+MnXq1EWLFhVGfufOnU8++WRHR8fChQuL76Grq+vnP/+5iEyfPr0wPtOnT1+9evXw4cMrKyvfI6/TMdVErHLFX7ty5op9qw4brS0hSylhJb7gUJevOljvzsXQbUABBBBGLotcZyKRPXd0zeLpYz8yvmpMpZO0bBCdVphtkbpV1OmGqLjrRdggtZBHXjDiEktMwEZyZJvJNTSlZsTdM0Zv7u54Yv2RJ9bs3JHuzsZqEWRun33O4gkjISlCYgiLXTHz2LFj0+n0ww8/fOedd9bU1BQMllprZi7+pOd56XQ6mUyG+yqUlkOKCT8Ti8UcxykpKXFdt6GhYdiwYcWbyrbt4h8sLKCCOlNSUmJZVrisi02noXLUS/4vbuqilLrwwgsL/GVZVjweDw/SefPmFV80VKxCyWjGjBnhcxXv9mJs2LBh06ZNn//85wvDAqC0tPTjH//4D37wgyVLlhTLLCJi23YikdBajxgxIhyfUx5auVzO9/1Q+YrH44nEsT5qtm0XNEHLsqZPnz5q1KiHHnroJz/5yT333FPguFDTLH7GcHxC/bHwTktLyxtvvLF48eLJkycX29dmz55dfNHCKHV3dzc1NdXU1Kxdu3bSpEnhEDHzhAkTCsMV6lzhdNfV1YUSbmE0HMcpfDJU6J566qlkMnnVVVcV38CECRNuuOGGn//85yNGjJg0aVLhocrLy2tqan75y196nnf++ecXz/VpmsbOZJ9QGKDH6uL6uq8uHAe/hY0rKDVKBxQ3ohVIa9GWcWyj7QQoDkk3VKT/8IrRr9539ZLPXPbnF54zo74m6SRADuj0hAU+9iIqvAhC4PyLJGyHogiK8v8OOU0RCKRhK44Z4zDDsvncqvK/X3jOM/dd+rXLxpXnDo5xOv/oksmWtiHu0AbE+L5fX19/xx135HK5Rx999PDhw4WZDmX7wievuuoqInr88cePHj0aznd4IJ9Utz+pDHXKXXdSq3Nfgljxgiv+QHj1sIfUiZ8MyTGdTqfT6UOHDh05cqSvuzLGrFmzZtiwYcUsU6CA2bNnb968+dChQ73us7u7O51Od3Z2ptPpgYjkr7zyyuOPP/7QQw899NBDbW1tvW6m+ClCwfCaa65pb2/ftGnTiYPWP1avXu04zoQJE3qNqlJq2rRpxdp0iLfffruhoeHKK6/ctWtXY2NjYSSLBzO8vZNOd6h1Ft9bqKbNmTPnxA9PnTp1+PDh69at6yVSXXfddTNnzvzlL3+5atWqE1fXe0o0oahgiBB4n5895Zbx1ZL1jdgGTJIROAJXkavIYUmabKpaHfniguG/unfhvyyeM2dEZZx8Y3yBFHqAnFUPRj9/6mnjRCIQkIgI+xPL4/945ZzH75z/7Y/NnVdZFpisr4a+Tlc6na6rq7vrrruY+ZFHHglXVbieQntqOPH19fV33XVXKpV64IEHdu3a9dv1IPTFPqcWPrVm5uXLl7/44ouPPvrowYMH+/qdIAi6urr6MujW1tYGQXDw4MFiOstms0uXLn355Zcffvjh/fv3n/IOmXnu3LnXX3/9ddddV11dfaKV5ETU19c7jtPV1XVKx1bYbLvwTmtrayKROJFQ+iLZLVu2jB8/fvLkyfF4fOPGjWc+ZZlMhogK6vmJz3Xw4MFsNlt4x/M827YXL1587rnnPv3008uXLy88WmFZvqdEAzATCekqS/7mpktmlHjIpKAdJhFhETEmMEaCXPO8EdZjn776W4vmz6tIWiws2reSot1wh/8W3bQq7CHYY8kPdxErV9hSBtdNnnDjpPEWB2RpgRrauwxNjwAaGhruvvturfWjjz7a2NgY2mV7iRgNDQ2f/vSnk8nkI488snPnzoEfp2fuYz6pOHAaUxYqGpdeeun1119/+eWX9+NODp1xHR0dvcSKYqYrvrHQ63TllVcuWrTosssu62tH9Xqoqqqq0AO1ePHigtep//lSShV7gk5Ku+E5UXx7WuuOjo7u7u6BjNLevXs7Ozu3b9/+yiuvxGKxLVu2tLa2nql32bKMMX39TsFNWXii0Kemtf7Yxz42Z86cZ5555tVXXw0tUKcn1Jwh0YT9lcQoEhNMrYj//c3za8mHR6JLQUbIgzLsp285b8SPP3HltSOqJcj4HACKSWuwJeb96fbXzKAg0AEkCMQEWmu2bem/5fDpIAiC8Iioq6u7++67E4nEj3/8423btsVisV76sIhUVVXdeeedVVVVr7zyShAE7w079zKaFrbWKU25fSG0Jc2bN6+hoaEvrgzNIocOHQpVxV44fPiwZVkjRozodVfxeNy27ZkzZw4wIiZkMRGpqakZyOO0tbUx85gxY3q5xnpNRPhmaHwJH3DUqFEdHR07duwYCJWvXLly9uzZixYtuuKKK2688cZcLrd169YznMS6urry8vINGzac9K+HDx8eOXJkgUBD11XoktNaL168eMGCBS+88MLSpUsLwRCDb0p1pvqI1hAShrKJvY9MHPYXN01OZJo5gGjtsLAJbp1V9cPr509IWMKBWFpZEMVajALwvo03C3s+g0CkiTQBiolOX4I4kTXCN40xhXiQ2trau+++u7Ky8qmnnvJ9vyBp+76/du3a8GPJZHLcuHHGmJMKGiJy0t7b4Z/6suTJsQ7QvRHqFAcOHOjleQVQbGweoLATHpWF22hvbz+pwBLiggsuqKmp+fWvfx0KfQW0t7evXLnyggsuCL0/Jw1cPCUFF99n+M8wIKXYA9VrJFOp1LPPPjthwoSRI0cW3qyqqrJte9++fcWf3LNnj1Jq/PjxhR+fO3fu6NGjn3/++V5cw8yrVq3KZDLFZuPW1tbZs2eHxulx48aNHTt29erVnZ2dvVgp1EP7saAVh8AkEolFixbt2bNnzZo1vT68atWq1tbWgjm/YAEsvtCNN954xRVXLFu2bNeuXb0EuvfG6xRShQBgESKLhL84Z1xnZ+qvlm6RZJUE1rSk+fqVU8vdrO+T0rYKK37TWemPOrTnOI61FkRPI9Mzklx6eViMMe3t7W1tbWHcR/hmZWXlnXfe+fTTT+/atatANMy8Zs2aVCo1ZcqUAwcOtLe3X3fddWHoVGExhZFgqVTq0KFDYeBWMY80Nzd3dna2tLQMGzasF92kUqlMJpPL5drb23tZXkWkrq7u+uuvf/nll7XWM2bMsCxrz549GzZsWLhwYRgp0wudnZ1dXV1Hjx7NZDK9VqTnea2trel0evny5VOnTj18+HAqlbriiiv6GjHXdW+//fannnrq4YcfnjNnzqhRo5h57969GzdunDFjRuGLYThMS0tLd3d3W1tbwfc8EKIptoJt3Lhx5syZ4f8eOXIkm82+++67w4cPdxwnlUrt27dv+/btw4cPX7RoUTEBlZeXL1q0aMmSJcw8ffp013X37Nmzbt26yy67LJlMFiYoHo/fcsstzzzzzE9/+tPp06dPmjSpoqKio6Pjrbfe0loXgpu6urpeeOGF8DgpXGLWrFmPPfbY0qVLr7zyysKYh3pQOp1uamqqqqrqNactLS1dXV2tra3Fx9XUqVM/9rGPLVu2rKmpacaMGRUVFV1dXVu2bDl06NCtt95azJ7t7e0dHR0HDx4cNWpUGKZIRFdffXVZWdmzzz57eo4n/fWvf30ozn4ikBBBYHnpOeeMCixZ/e5hP4h/5oJzPjmtlk0W5CjSSqkw5uV3J9nH9/0dO3a8+eab3d3dlZWVVVVV4UoNXST19fXMXFFRUVgQjuNMnjw5mUzW19eHb4Zxro2NjS0tLVrrCy+8MJQmisewu7s7k8mMGTMmDL0rVgSy2WxbW9u4ceNs2y4vLy+2eopIaKcMt3F5eXmvY5yIGhoawsidAwcOHDp0yPf9+fPnF1yhJwrh5eXl1dXVACoqKorvsL29nYgmT54cBptlMpnx48dXVlb2M3TxeHzWrFmWZTU1NR0+fLi1tdUYM3v27PPOO6+w3EWku7ubmcePH6+1LisrO2WSR1dX1/Lly1taWpqamtLpdGtr69KlS7XWoVfI9/2Ojo5Ro0YlEonW1ta2trajR49alnXuuedeeOGFJxp0C+Nz8ODBxsZGz/MWLFgwceLEXrJVSUlJmPGQTqePHj0aBgePHj36ggsuKPxmc3NzKAoVT1MymaysrAxjfEPbExGl0+lUKjV27Fgi6jXdoZl85MiRZWVlsVgs5KbwNurr6ydOnBj6zo8cOdLR0VFRUbFw4cJiTdMYc+TIkaqqKtd14/F4SUlJQWYcMWJEQ0NDdXV1WVlZv6rTyfouHi+Bn2F/aGKQx4FSYNC/Pvf2n73+7t/efMH/mjPcgJS4INOTH/S7wjIi1NnZsXPnLmNMuDdGjRpVW1vbS5HpP3Gp/5CQ0IzX69d6STS9/rdwrf4/ObQW5ZP+8plf8cRInFP+ZmNj4+7duy3LCg1kYZjJ1KlTGxoahurxT+O5TvqVk85dr6XSzyQWf36At3Ti14v/t2jZyKAMMkNLNBAoT0QJ28YXK/aVV1aXaPM3l86zGNCK8r3ff6eIRoj0SY1/A1+Iveb+DLMrP3DZmP0s/aHlx+M3Er0HLNMXR5x0xk/vrk66YAbIOP2uE/5tEg2ghFnCo1yrDtBr23deVF9fXRozJIrU72R5BIoKX0X40OG3TjTHPPKsjfaI2XiOZUmPNfs4yiT8DnSSjYgmwu860VhDv6uOUYmG8m0N6Dgd8zQVs5qQRB2rI0T48GPIa4kLIGE2ERGgwiJYUkwuYeErzgszAqYAKgAYpkikiugnQoQPkVQ/1KpTvyQkAsAI+2IsrWwoBMYQQGRgK5ClAgAGYJA10GA+Ov7+I9UpQoTfAdXpVHuOFFEqnWls68ppu6GqZlTcBjIaDLgQDTGamACQHtj+fP8TTYQIkUTzHko0PVRIItSYTr+89Z2WTK48Vl4ac6c2VI5IxstiCbs3ZRgwoMLyoXKCy03CTgh5IiWdl5sEpHpKFEMDBDHcd6B9JNFEiHBWJZr3nmiIERCEYAHozKRfe/fw99fu3ZjKKErPrdDnjRs/uapyTGmsqtRJuI5r6ZhFNtn5Mua9H0MAv2gnh0IQM0zOIOdxZzrd1nVUjF9XVl5fVaWJoNR7bn+OWCbChw/yPieaoouxMDytdBrOlqPdr2zf/8y6/etbskdZyPGrlF/uxEaXlY10dbVDteXO8Aqnxo05VonYMa01OKzaSR7YA2c8L9eRbcv4ezpTB9q7G6E5Jw3izRjuXjZt2AWjRlfaMRCY8oX2IkSIcHbwfiMaSCACwDYBiKGVH/jbu9Xrh7pWbd2z/GD7gW6kskDOA+dgAQQoBeVCuXn5RgBfQDlQGgrQDaBstXV0XDmuHTF24dQJY2viI8sRIxLRJLaQEhIVmXIiRPjdIRoWAQcKwmwxaSJoNrAsEARIpTKHsmZHd2bP0bat+1oOdeJgxjqYVZkgayGXv3Mi13Xq4+7IhDupPnlhtT28srS+LFZZEo/rADDMQgGBhCwdWpcF4c9HiBDhd4Noiq7HBCOCALYFQ2ABhKBxLCfVALmAs4Fn2CfRoUVYAKV1zNYJVdRJCsLikVgEzQh8YUVaKQ2wgqG8KSdChAi/M0Rz/KUhPdVt0FMApqdLU8GqQv3x1bG+usd6SMrx348QIcLvMtFEiBDhQ0s0KhqVCBEi/Ba4J0KECBEiookQIUJENBEiRIgQEU2ECBEiookQIcKHDb3LRIhEEScRTgEiSBQFEaGPtTEQiSZimQinRsQyEQa7NiLVKcJgV1JEMxEGL+lE6yZChAhnG5FEEyFChIhoIkSIEBFNhAgRIkREEyFChIhoIkSIEBFNhAgRIkREEyFChA8A/n+zxur6+In2/QAAAABJRU5ErkJggg=="
+					alt="Pinnacle Institute of Education"
+				/>
+				<div>
+					<h1>Enrolment Form</h1>
+					<p class="sub">
+						SC6.2-I &nbsp;|&nbsp; Version 3.0 &nbsp;|&nbsp; Complete all
+						sections marked with *
+					</p>
+				</div>
+			</div>
+		</header>
+
+		<div class="wrap">
+			<form id="mainform" novalidate data-formtype="Enrolment">
+				<!-- ============ APPLICATION ============ -->
+				<div class="card">
+					<div class="head">
+						Application for Enrolment <span class="step">Section 1 of 10</span>
+					</div>
+					<div class="body">
+						<fieldset>
+							<legend class="req">
+								Which course would you like to enrol into?
+							</legend>
+							<label class="inline"
+								><input
+									type="radio"
+									name="course"
+									value="BSB50120 Diploma of Business (CRICOS 113399K)"
+									required
+								/>
+								BSB50120 Diploma of Business
+								<span class="hint">(CRICOS Course Code: 113399K)</span></label
+							>
+							<label class="inline"
+								><input
+									type="radio"
+									name="course"
+									value="BSB60420 Advanced Diploma of Leadership and Management (CRICOS 113400M)"
+								/>
+								BSB60420 Advanced Diploma of Leadership and Management
+								<span class="hint">(CRICOS 113400M)</span></label
+							>
+							<label class="inline"
+								><input
+									type="radio"
+									name="course"
+									value="CPP20218 Certificate II in Security Operations (CRICOS 113401K)"
+								/>
+								CPP20218 Certificate II in Security Operations
+								<span class="hint">(CRICOS 113401K)</span></label
+							>
+						</fieldset>
+
+						<fieldset>
+							<legend class="req">Preferred start date</legend>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="start_pref"
+										value="As soon as possible"
+										required
+										data-reveal-close="startdate"
+									/>
+									As soon as possible</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="start_pref"
+										value="From a specific date"
+										data-reveal="startdate"
+									/>
+									From a specific date</label
+								>
+							</div>
+							<div class="reveal" id="startdate">
+								<div class="field" style="max-width: 240px">
+									<label for="start_date">Preferred start date</label>
+									<input type="date" id="start_date" name="start_date" />
+								</div>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend class="req">
+								Have you ever studied with Pinnacle Institute of Education
+								before?
+							</legend>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="studied_before"
+										value="Yes"
+										required
+									/>
+									Yes</label
+								>
+								<label class="inline"
+									><input type="radio" name="studied_before" value="No" />
+									No</label
+								>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend class="req">Do you wish to apply for Credit?</legend>
+							<p class="hint" style="margin: 0 0 6px">
+								If YES, certified copies of transcripts from previous
+								qualifications must be provided with this form, along with a
+								Credit Application Form.
+							</p>
+							<div class="choices">
+								<label class="inline"
+									><input type="radio" name="credit" value="Yes" required />
+									Yes</label
+								>
+								<label class="inline"
+									><input type="radio" name="credit" value="No" /> No</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="credit"
+										value="Maybe - I'd like more information"
+									/>
+									Maybe – I’d like more information</label
+								>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend class="req">
+								Do you wish to apply for Recognition of Prior Learning?
+							</legend>
+							<p class="hint" style="margin: 0 0 6px">
+								If you indicate YES, you will be contacted to discuss this
+								further.
+							</p>
+							<div class="choices">
+								<label class="inline"
+									><input type="radio" name="rpl" value="Yes" required />
+									Yes</label
+								>
+								<label class="inline"
+									><input type="radio" name="rpl" value="No" /> No</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="rpl"
+										value="Maybe - I'd like more information"
+									/>
+									Maybe – I’d like more information</label
+								>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend class="req">
+								For international students: are you applying for a Course
+								Transfer (from another Australian registered CRICOS provider)?
+							</legend>
+							<p class="hint" style="margin: 0 0 6px">
+								If YES, a Course Transfer form must accompany this application.
+								If you are transferring prior to completing 6 months of your
+								principal course of study, you must provide a letter of release
+								except in certain conditions (see our Student Handbook).
+							</p>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="course_transfer"
+										value="Yes"
+										required
+									/>
+									Yes</label
+								>
+								<label class="inline"
+									><input type="radio" name="course_transfer" value="No" />
+									No</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="course_transfer"
+										value="Maybe - I'd like more information"
+									/>
+									Maybe – I’d like more information</label
+								>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend>
+								Application checklist — documents you will provide
+							</legend>
+							<p class="hint" style="margin: 0 0 6px">
+								Email copies of these documents to
+								<a href="mailto:info@pinnacleinstitute.com.au"
+									>info@pinnacleinstitute.com.au</a
+								>. You will need to bring the originals to your orientation day
+								for verification. Tick those you are providing:
+							</p>
+							<label class="inline"
+								><input
+									type="checkbox"
+									name="docs"
+									value="Valid passport copy"
+								/>
+								Valid passport copy</label
+							>
+							<label class="inline"
+								><input type="checkbox" name="docs" value="Valid visa" /> Valid
+								visa <span class="hint">(if you have one)</span></label
+							>
+							<label class="inline"
+								><input
+									type="checkbox"
+									name="docs"
+									value="High School certificate or other relevant certificates"
+								/>
+								High School certificate or other relevant certificates</label
+							>
+							<label class="inline"
+								><input
+									type="checkbox"
+									name="docs"
+									value="Proof of English Language Proficiency"
+								/>
+								Proof of English Language Proficiency
+								<span class="hint">(i.e. test results)</span></label
+							>
+							<label class="inline"
+								><input
+									type="checkbox"
+									name="docs"
+									value="Other relevant documents (e.g. resume)"
+								/>
+								Any other relevant documents to support your application
+								<span class="hint">(e.g. resume)</span></label
+							>
+						</fieldset>
+					</div>
+				</div>
+
+				<!-- ============ PERSONAL DETAILS ============ -->
+				<div class="card">
+					<div class="head">
+						Personal Details <span class="step">Section 2 of 10</span>
+					</div>
+					<div class="body">
+						<fieldset>
+							<legend>1. Enter your full name</legend>
+							<label class="inline"
+								><input
+									type="checkbox"
+									id="single_name"
+									name="single_name"
+									value="Yes"
+								/>
+								Single name only
+								<span class="hint"
+									>(tick this box if you have one name only — write it in the
+									Family name field)</span
+								></label
+							>
+							<div class="grid g3" style="margin-top: 10px">
+								<div class="field">
+									<label class="req" for="family_name"
+										>Family name (surname)</label
+									><input
+										type="text"
+										id="family_name"
+										name="family_name"
+										required
+										autocomplete="family-name"
+									/>
+								</div>
+								<div class="field">
+									<label class="req" for="first_name">First given name</label
+									><input
+										type="text"
+										id="first_name"
+										name="first_name"
+										required
+										autocomplete="given-name"
+									/>
+								</div>
+								<div class="field">
+									<label for="middle_name">Second given name (middle)</label
+									><input
+										type="text"
+										id="middle_name"
+										name="middle_name"
+										autocomplete="additional-name"
+									/>
+								</div>
+							</div>
+							<p class="hint">
+								Please write the name that you used when you applied for your
+								Unique Student Identifier (USI), including any middle names.
+							</p>
+						</fieldset>
+
+						<fieldset>
+							<div class="grid g2">
+								<div class="field">
+									<label class="req" for="dob">2. Birth date</label
+									><input
+										type="date"
+										id="dob"
+										name="dob"
+										required
+										autocomplete="bday"
+									/>
+								</div>
+								<div class="field">
+									<span class="lbl req">3. Gender</span>
+									<div class="choices">
+										<label class="inline"
+											><input
+												type="radio"
+												name="gender"
+												value="Male"
+												required
+											/>
+											Male</label
+										>
+										<label class="inline"
+											><input type="radio" name="gender" value="Female" />
+											Female</label
+										>
+										<label class="inline"
+											><input type="radio" name="gender" value="Other" />
+											Other</label
+										>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend>4. Contact details</legend>
+							<div class="grid g2">
+								<div class="field">
+									<label for="home_phone">Home phone</label
+									><input type="tel" id="home_phone" name="home_phone" />
+								</div>
+								<div class="field">
+									<label for="work_phone">Work phone</label
+									><input type="tel" id="work_phone" name="work_phone" />
+								</div>
+								<div class="field">
+									<label class="req" for="mobile">Mobile</label
+									><input
+										type="tel"
+										id="mobile"
+										name="mobile"
+										required
+										autocomplete="tel"
+									/>
+								</div>
+								<div class="field">
+									<label class="req" for="email">Email address</label
+									><input
+										type="email"
+										id="email"
+										name="email"
+										required
+										autocomplete="email"
+									/>
+								</div>
+								<div class="field">
+									<label for="alt_email">Alternative email (optional)</label
+									><input type="email" id="alt_email" name="alt_email" />
+								</div>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend>5. Address of your usual residence</legend>
+							<p class="hint" style="margin: 0 0 10px">
+								Provide the physical address (street number and name, not a post
+								office box) where you usually reside — not a temporary address
+								used for training or work.
+							</p>
+							<div class="grid g2">
+								<div class="field">
+									<label for="res_building">Building / property name</label
+									><input type="text" id="res_building" name="res_building" />
+								</div>
+								<div class="field">
+									<label for="res_flat">Flat / unit details</label
+									><input type="text" id="res_flat" name="res_flat" />
+								</div>
+								<div class="field">
+									<label class="req" for="res_streetno"
+										>Street or lot number
+										<span style="font-weight: 400"
+											>(e.g. 205 or Lot 118)</span
+										></label
+									><input
+										type="text"
+										id="res_streetno"
+										name="res_streetno"
+										required
+									/>
+								</div>
+								<div class="field">
+									<label class="req" for="res_street">Street name</label
+									><input
+										type="text"
+										id="res_street"
+										name="res_street"
+										required
+									/>
+								</div>
+								<div class="field">
+									<label class="req" for="res_suburb"
+										>Suburb, locality or town</label
+									><input
+										type="text"
+										id="res_suburb"
+										name="res_suburb"
+										required
+									/>
+								</div>
+								<div class="field">
+									<label class="req" for="res_state">State / territory</label>
+									<select id="res_state" name="res_state" required>
+										<option value="">Select…</option>
+										<option>VIC</option>
+										<option>NSW</option>
+										<option>QLD</option>
+										<option>SA</option>
+										<option>WA</option>
+										<option>TAS</option>
+										<option>NT</option>
+										<option>ACT</option>
+										<option>Overseas</option>
+									</select>
+								</div>
+								<div class="field">
+									<label class="req" for="res_postcode">Postcode</label
+									><input
+										type="text"
+										id="res_postcode"
+										name="res_postcode"
+										required
+										inputmode="numeric"
+										maxlength="10"
+									/>
+								</div>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend>6. Postal address</legend>
+							<label class="inline"
+								><input
+									type="checkbox"
+									id="postal_diff"
+									name="postal_diff"
+									value="Yes"
+									data-reveal="postalblock"
+								/>
+								My postal address is different from my residential
+								address</label
+							>
+							<div class="reveal" id="postalblock">
+								<div class="grid g2">
+									<div class="field">
+										<label for="post_building">Building / property name</label
+										><input
+											type="text"
+											id="post_building"
+											name="post_building"
+										/>
+									</div>
+									<div class="field">
+										<label for="post_flat">Flat / unit details</label
+										><input type="text" id="post_flat" name="post_flat" />
+									</div>
+									<div class="field">
+										<label for="post_streetno">Street or lot number</label
+										><input
+											type="text"
+											id="post_streetno"
+											name="post_streetno"
+										/>
+									</div>
+									<div class="field">
+										<label for="post_street">Street name</label
+										><input type="text" id="post_street" name="post_street" />
+									</div>
+									<div class="field">
+										<label for="post_suburb">Suburb, locality or town</label
+										><input type="text" id="post_suburb" name="post_suburb" />
+									</div>
+									<div class="field">
+										<label for="post_state">State / territory</label>
+										<select id="post_state" name="post_state">
+											<option value="">Select…</option>
+											<option>VIC</option>
+											<option>NSW</option>
+											<option>QLD</option>
+											<option>SA</option>
+											<option>WA</option>
+											<option>TAS</option>
+											<option>NT</option>
+											<option>ACT</option>
+											<option>Overseas</option>
+										</select>
+									</div>
+									<div class="field">
+										<label for="post_postcode">Postcode</label
+										><input
+											type="text"
+											id="post_postcode"
+											name="post_postcode"
+											inputmode="numeric"
+											maxlength="10"
+										/>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<!-- ============ LANGUAGE & CULTURE ============ -->
+				<div class="card">
+					<div class="head">
+						Language and Cultural Diversity
+						<span class="step">Section 3 of 10</span>
+					</div>
+					<div class="body">
+						<fieldset>
+							<legend class="req">7. In which country were you born?</legend>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="birth_country"
+										value="Australia"
+										required
+										data-reveal-close="birthother"
+									/>
+									Australia</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="birth_country"
+										value="Other"
+										data-reveal="birthother"
+									/>
+									Other</label
+								>
+							</div>
+							<div class="reveal" id="birthother">
+								<div class="field" style="max-width: 340px">
+									<label for="birth_country_other">Please specify country</label
+									><input
+										type="text"
+										id="birth_country_other"
+										name="birth_country_other"
+									/>
+								</div>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend class="req">
+								8. Do you speak a language other than English at home?
+							</legend>
+							<p class="hint" style="margin: 0 0 6px">
+								If more than one language, indicate the one spoken most often.
+							</p>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="other_language"
+										value="No, English only"
+										required
+										data-reveal-close="langother"
+									/>
+									No, English only</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="other_language"
+										value="Yes"
+										data-reveal="langother"
+									/>
+									Yes, other</label
+								>
+							</div>
+							<div class="reveal" id="langother">
+								<div class="field" style="max-width: 340px">
+									<label for="other_language_specify"
+										>Please specify language</label
+									><input
+										type="text"
+										id="other_language_specify"
+										name="other_language_specify"
+									/>
+								</div>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend class="req">
+								9. Are you of Aboriginal or Torres Strait Islander origin?
+							</legend>
+							<p class="hint" style="margin: 0 0 6px">
+								For persons of both Aboriginal and Torres Strait Islander
+								origin, tick both ‘Yes’ boxes.
+							</p>
+							<label class="inline"
+								><input type="checkbox" name="atsi" value="No" id="atsi_no" />
+								No</label
+							>
+							<label class="inline"
+								><input type="checkbox" name="atsi" value="Yes, Aboriginal" />
+								Yes, Aboriginal</label
+							>
+							<label class="inline"
+								><input
+									type="checkbox"
+									name="atsi"
+									value="Yes, Torres Strait Islander"
+								/>
+								Yes, Torres Strait Islander</label
+							>
+						</fieldset>
+					</div>
+				</div>
+
+				<!-- ============ DISABILITY ============ -->
+				<div class="card">
+					<div class="head">
+						Disability <span class="step">Section 4 of 10</span>
+					</div>
+					<div class="body">
+						<fieldset>
+							<legend class="req">
+								10. Do you consider yourself to have a disability, impairment or
+								long-term condition?
+							</legend>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="disability"
+										value="Yes"
+										required
+										data-reveal="disareas"
+									/>
+									Yes</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="disability"
+										value="No"
+										data-reveal-close="disareas"
+									/>
+									No</label
+								>
+							</div>
+							<div class="reveal" id="disareas">
+								<span class="q"
+									>11. Please select the area(s):
+									<span class="hint"
+										>(you may indicate more than one — see the Disability
+										Supplement below for explanations)</span
+									></span
+								>
+								<div class="choices">
+									<label class="inline"
+										><input
+											type="checkbox"
+											name="disability_areas"
+											value="Hearing/deaf"
+										/>
+										Hearing / deaf</label
+									>
+									<label class="inline"
+										><input
+											type="checkbox"
+											name="disability_areas"
+											value="Physical"
+										/>
+										Physical</label
+									>
+									<label class="inline"
+										><input
+											type="checkbox"
+											name="disability_areas"
+											value="Intellectual"
+										/>
+										Intellectual</label
+									>
+									<label class="inline"
+										><input
+											type="checkbox"
+											name="disability_areas"
+											value="Learning"
+										/>
+										Learning</label
+									>
+									<label class="inline"
+										><input
+											type="checkbox"
+											name="disability_areas"
+											value="Mental illness"
+										/>
+										Mental illness</label
+									>
+									<label class="inline"
+										><input
+											type="checkbox"
+											name="disability_areas"
+											value="Acquired brain impairment"
+										/>
+										Acquired brain impairment</label
+									>
+									<label class="inline"
+										><input
+											type="checkbox"
+											name="disability_areas"
+											value="Vision"
+										/>
+										Vision</label
+									>
+									<label class="inline"
+										><input
+											type="checkbox"
+											name="disability_areas"
+											value="Medical condition"
+										/>
+										Medical condition</label
+									>
+									<label class="inline"
+										><input
+											type="checkbox"
+											name="disability_areas"
+											value="Other"
+										/>
+										Other</label
+									>
+								</div>
+								<details style="margin-top: 10px">
+									<summary
+										style="
+											cursor: pointer;
+											color: var(--blue);
+											font-size: 0.9rem;
+										"
+									>
+										View the Disability Supplement (explanations of each area)
+									</summary>
+									<div class="readbox" style="font-size: 0.85rem">
+										<p>
+											<strong>Hearing/deaf</strong> — acquired mild to profound
+											hearing loss after learning to speak, or deaf from/near
+											birth relying mainly on vision to communicate.
+										</p>
+										<p>
+											<strong>Physical</strong> — affects mobility or dexterity;
+											may include total or partial loss of part of the body
+											(e.g. amputation, arthritis, cerebral palsy, MS, muscular
+											dystrophy, paraplegia).
+										</p>
+										<p>
+											<strong>Intellectual</strong> — low general intellectual
+											functioning and difficulties in adaptive behaviour
+											manifested before age 18.
+										</p>
+										<p>
+											<strong>Learning</strong> — significant difficulties in
+											the acquisition and use of listening, speaking, reading,
+											writing, reasoning or mathematical abilities.
+										</p>
+										<p>
+											<strong>Mental illness</strong> — a cluster of
+											psychological and physiological symptoms causing suffering
+											or distress and representing a departure from usual
+											functioning.
+										</p>
+										<p>
+											<strong>Acquired brain impairment</strong> — injury to the
+											brain resulting in deterioration in cognitive, physical,
+											emotional or independent functioning.
+										</p>
+										<p>
+											<strong>Vision</strong> — partial loss of sight causing
+											difficulties in seeing, up to and including blindness.
+										</p>
+										<p>
+											<strong>Medical condition</strong> — a temporary or
+											permanent condition, e.g. HIV/AIDS, cancer, chronic
+											fatigue syndrome, Crohn’s disease, cystic fibrosis, asthma
+											or diabetes.
+										</p>
+										<p>
+											<strong>Other</strong> — a condition not suitably
+											described by the above. Autism spectrum disorders are
+											reported under this category.
+										</p>
+										<p>
+											Disability in this context does not include short-term
+											conditions such as a fractured leg or influenza, or
+											corrected conditions such as impaired vision managed with
+											glasses.
+										</p>
+									</div>
+								</details>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<!-- ============ SCHOOLING ============ -->
+				<div class="card">
+					<div class="head">
+						Schooling <span class="step">Section 5 of 10</span>
+					</div>
+					<div class="body">
+						<fieldset>
+							<legend class="req">
+								12. What is your highest COMPLETED school level?
+							</legend>
+							<p class="hint" style="margin: 0 0 6px">
+								If you are currently enrolled in secondary education, this
+								refers to the highest level you have actually completed — e.g.
+								if you are currently in Year 10, the highest completed level is
+								Year 9.
+							</p>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="school_level"
+										value="Year 12 or equivalent"
+										required
+									/>
+									Year 12 or equivalent</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="school_level"
+										value="Year 11 or equivalent"
+									/>
+									Year 11 or equivalent</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="school_level"
+										value="Year 10 or equivalent"
+									/>
+									Year 10 or equivalent</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="school_level"
+										value="Year 9 or equivalent"
+									/>
+									Year 9 or equivalent</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="school_level"
+										value="Year 8 or below"
+									/>
+									Year 8 or below</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="school_level"
+										value="Never attended school"
+									/>
+									Never attended school</label
+								>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend class="req">
+								13. Are you still enrolled in secondary or senior secondary
+								education?
+							</legend>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="still_school"
+										value="Yes"
+										required
+									/>
+									Yes</label
+								>
+								<label class="inline"
+									><input type="radio" name="still_school" value="No" />
+									No</label
+								>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<!-- ============ PREVIOUS QUALIFICATIONS ============ -->
+				<div class="card">
+					<div class="head">
+						Previous Qualifications Achieved
+						<span class="step">Section 6 of 10</span>
+					</div>
+					<div class="body">
+						<fieldset>
+							<legend class="req">
+								14. Have you SUCCESSFULLY completed any of the qualifications
+								listed below?
+							</legend>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="prev_quals"
+										value="Yes"
+										required
+										data-reveal="qualslist"
+									/>
+									Yes</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="prev_quals"
+										value="No"
+										data-reveal-close="qualslist"
+									/>
+									No</label
+								>
+							</div>
+							<div class="reveal" id="qualslist">
+								<span class="q"
+									>15. Tick ANY applicable boxes and choose the recognition
+									identifier</span
+								>
+								<p class="hint" style="margin: 0 0 8px">
+									A = Australian, E = Australian equivalent, I = International.
+									If a qualification has multiple identifiers, use this
+									priority: 1.&nbsp;A&nbsp; 2.&nbsp;E&nbsp; 3.&nbsp;I.
+								</p>
+								<div class="scroll-x">
+									<table class="mini">
+										<tr>
+											<th style="width: 46%">Qualification</th>
+											<th>Achieved?</th>
+											<th style="width: 32%">Identifier</th>
+										</tr>
+										<tr>
+											<td>Bachelor degree or higher degree</td>
+											<td style="text-align: center">
+												<input
+													type="checkbox"
+													name="qual_bachelor"
+													value="Yes"
+												/>
+											</td>
+											<td>
+												<select name="qual_bachelor_id">
+													<option value="">—</option>
+													<option>A – Australian</option>
+													<option>E – Australian equivalent</option>
+													<option>I – International</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>Advanced diploma or associate degree</td>
+											<td style="text-align: center">
+												<input type="checkbox" name="qual_advdip" value="Yes" />
+											</td>
+											<td>
+												<select name="qual_advdip_id">
+													<option value="">—</option>
+													<option>A – Australian</option>
+													<option>E – Australian equivalent</option>
+													<option>I – International</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>Diploma (or associate diploma)</td>
+											<td style="text-align: center">
+												<input type="checkbox" name="qual_dip" value="Yes" />
+											</td>
+											<td>
+												<select name="qual_dip_id">
+													<option value="">—</option>
+													<option>A – Australian</option>
+													<option>E – Australian equivalent</option>
+													<option>I – International</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Certificate IV (or advanced certificate / technician)
+											</td>
+											<td style="text-align: center">
+												<input type="checkbox" name="qual_cert4" value="Yes" />
+											</td>
+											<td>
+												<select name="qual_cert4_id">
+													<option value="">—</option>
+													<option>A – Australian</option>
+													<option>E – Australian equivalent</option>
+													<option>I – International</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>Certificate III (or trade certificate)</td>
+											<td style="text-align: center">
+												<input type="checkbox" name="qual_cert3" value="Yes" />
+											</td>
+											<td>
+												<select name="qual_cert3_id">
+													<option value="">—</option>
+													<option>A – Australian</option>
+													<option>E – Australian equivalent</option>
+													<option>I – International</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>Certificate II</td>
+											<td style="text-align: center">
+												<input type="checkbox" name="qual_cert2" value="Yes" />
+											</td>
+											<td>
+												<select name="qual_cert2_id">
+													<option value="">—</option>
+													<option>A – Australian</option>
+													<option>E – Australian equivalent</option>
+													<option>I – International</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>Certificate I</td>
+											<td style="text-align: center">
+												<input type="checkbox" name="qual_cert1" value="Yes" />
+											</td>
+											<td>
+												<select name="qual_cert1_id">
+													<option value="">—</option>
+													<option>A – Australian</option>
+													<option>E – Australian equivalent</option>
+													<option>I – International</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Other education (incl. certificates or overseas
+												qualifications not listed)
+											</td>
+											<td style="text-align: center">
+												<input type="checkbox" name="qual_other" value="Yes" />
+											</td>
+											<td>
+												<select name="qual_other_id">
+													<option value="">—</option>
+													<option>A – Australian</option>
+													<option>E – Australian equivalent</option>
+													<option>I – International</option>
+												</select>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<!-- ============ EMPLOYMENT & STUDY REASON ============ -->
+				<div class="card">
+					<div class="head">
+						Employment &amp; Study Reason
+						<span class="step">Section 7 of 10</span>
+					</div>
+					<div class="body">
+						<fieldset>
+							<legend class="req">
+								16. Which BEST describes your current employment status?
+								<span class="hint" style="font-weight: 400">(tick one)</span>
+							</legend>
+							<p class="hint" style="margin: 0 0 6px">
+								For casual, seasonal, contract and shift work, use current hours
+								per week: full-time = 35 hours or more, part-time = less than
+								35.
+							</p>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="employment_status"
+										value="Full-time employee"
+										required
+									/>
+									Full-time employee</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="employment_status"
+										value="Part-time employee"
+									/>
+									Part-time employee</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="employment_status"
+										value="Self-employed - not employing others"
+									/>
+									Self-employed – not employing others</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="employment_status"
+										value="Self-employed - employing others"
+									/>
+									Self-employed – employing others</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="employment_status"
+										value="Employed - unpaid worker in a family business"
+									/>
+									Employed – unpaid worker in a family business</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="employment_status"
+										value="Unemployed - seeking full-time work"
+									/>
+									Unemployed – seeking full-time work</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="employment_status"
+										value="Unemployed - seeking part-time work"
+									/>
+									Unemployed – seeking part-time work</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="employment_status"
+										value="Not employed - not seeking employment"
+									/>
+									Not employed – not seeking employment</label
+								>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend class="req">
+								17. Which BEST describes your main reason for undertaking this
+								course?
+								<span class="hint" style="font-weight: 400">(tick one)</span>
+							</legend>
+							<div class="choices">
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="To get a job"
+										required
+									/>
+									To get a job</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="To develop my existing business"
+									/>
+									To develop my existing business</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="To start my own business"
+									/>
+									To start my own business</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="To try for a different career"
+									/>
+									To try for a different career</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="To get a better job or promotion"
+									/>
+									To get a better job or promotion</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="It was a requirement of my job"
+									/>
+									It was a requirement of my job</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="I wanted extra skills for my job"
+									/>
+									I wanted extra skills for my job</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="To get into another course of study"
+									/>
+									To get into another course of study</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="For personal interest or self-development"
+									/>
+									For personal interest or self-development</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="To get skills for community/voluntary work"
+									/>
+									To get skills for community / voluntary work</label
+								>
+								<label class="inline"
+									><input
+										type="radio"
+										name="study_reason"
+										value="Other reasons"
+									/>
+									Other reasons</label
+								>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<!-- ============ NEXT OF KIN & EMPLOYMENT DETAILS ============ -->
+				<div class="card">
+					<div class="head">
+						Next of Kin / Emergency Contact
+						<span class="step">Section 8 of 10</span>
+					</div>
+					<div class="body">
+						<p class="note">
+							These are people Pinnacle Institute of Education may need to
+							contact in an emergency during your participation in training.
+							Please ensure the people named are aware they have been nominated
+							and agree to their details being provided.
+						</p>
+						<div class="grid g2">
+							<div class="field">
+								<label class="req" for="kin_name">Name</label
+								><input type="text" id="kin_name" name="kin_name" required />
+							</div>
+							<div class="field">
+								<label class="req" for="kin_rel">Relationship to you</label
+								><input type="text" id="kin_rel" name="kin_rel" required />
+							</div>
+							<div class="field" style="grid-column: 1/-1">
+								<label for="kin_address">Address</label
+								><input type="text" id="kin_address" name="kin_address" />
+							</div>
+							<div class="field">
+								<label for="kin_home">Home phone</label
+								><input type="tel" id="kin_home" name="kin_home" />
+							</div>
+							<div class="field">
+								<label for="kin_work">Work phone</label
+								><input type="tel" id="kin_work" name="kin_work" />
+							</div>
+							<div class="field">
+								<label class="req" for="kin_mobile">Mobile</label
+								><input type="tel" id="kin_mobile" name="kin_mobile" required />
+							</div>
+							<div class="field">
+								<label for="kin_email">Email</label
+								><input type="email" id="kin_email" name="kin_email" />
+							</div>
+						</div>
+
+						<fieldset style="margin-top: 24px">
+							<legend>
+								Employment details
+								<span class="hint" style="font-weight: 400"
+									>(not applicable for class-based students or Pinnacle
+									employees — skip if not applicable)</span
+								>
+							</legend>
+							<label class="inline"
+								><input
+									type="checkbox"
+									id="emp_applicable"
+									name="emp_applicable"
+									value="Yes"
+									data-reveal="empblock"
+								/>
+								This section applies to me</label
+							>
+							<div class="reveal" id="empblock">
+								<div class="grid g2">
+									<div class="field">
+										<label for="emp_legal">Employer’s legal name</label
+										><input type="text" id="emp_legal" name="emp_legal" />
+									</div>
+									<div class="field">
+										<label for="emp_position">Your position</label
+										><input type="text" id="emp_position" name="emp_position" />
+									</div>
+									<div class="field" style="grid-column: 1/-1">
+										<label for="emp_address">Business address</label
+										><input type="text" id="emp_address" name="emp_address" />
+									</div>
+									<div class="field">
+										<label for="emp_phone">Phone</label
+										><input type="tel" id="emp_phone" name="emp_phone" />
+									</div>
+									<div class="field">
+										<label for="emp_email">Email</label
+										><input type="email" id="emp_email" name="emp_email" />
+									</div>
+									<div class="field">
+										<label for="emp_supervisor">Supervisor</label
+										><input
+											type="text"
+											id="emp_supervisor"
+											name="emp_supervisor"
+										/>
+									</div>
+									<div class="field">
+										<label for="emp_sup_position">Supervisor’s position</label
+										><input
+											type="text"
+											id="emp_sup_position"
+											name="emp_sup_position"
+										/>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<!-- ============ VSN & USI ============ -->
+				<div class="card">
+					<div class="head">
+						Victorian Student Number &amp; USI
+						<span class="step">Section 9 of 10</span>
+					</div>
+					<div class="body">
+						<fieldset>
+							<legend>
+								Victorian Student Number (VSN)
+								<span class="hint" style="font-weight: 400"
+									>— to be completed by all Victorian students aged up to 24
+									years</span
+								>
+							</legend>
+							<p class="hint" style="margin: 0 0 10px">
+								A VSN is allocated to all school and VET students up to 24 years
+								of age upon their first enrolment in a Victorian school from
+								2009 or their first enrolment with a VET training provider from
+								2011.
+							</p>
+							<div class="field" style="max-width: 340px">
+								<label for="vsn">18. Enter your VSN (if applicable)</label
+								><input type="text" id="vsn" name="vsn" inputmode="numeric" />
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend class="req">
+								19. Have you attended any Victorian school since 2009, or done
+								any training with a VET registered training organisation or
+								Adult and Community Education provider in Victoria since 2011?
+							</legend>
+							<label class="inline"
+								><input
+									type="radio"
+									name="vic_history"
+									value="No"
+									required
+									data-reveal-close="vicschool,victraining"
+								/>
+								No — I have not attended a Victorian school since 2009 or a TAFE
+								/ VET provider since the beginning of 2011</label
+							>
+							<label class="inline"
+								><input
+									type="radio"
+									name="vic_history"
+									value="Yes - Victorian school since 2009"
+									data-reveal="vicschool"
+									data-reveal-close="victraining"
+								/>
+								Yes — I have attended a Victorian school since 2009</label
+							>
+							<label class="inline"
+								><input
+									type="radio"
+									name="vic_history"
+									value="Yes - training at TAFE/RTO since 2011"
+									data-reveal="victraining"
+									data-reveal-close="vicschool"
+								/>
+								Yes — I have participated in training at a TAFE or other
+								training organisation since the beginning of 2011</label
+							>
+							<div class="reveal" id="vicschool">
+								<div class="field">
+									<label for="vic_school_name"
+										>Most recent Victorian school attended</label
+									><input
+										type="text"
+										id="vic_school_name"
+										name="vic_school_name"
+									/>
+								</div>
+							</div>
+							<div class="reveal" id="victraining">
+								<span class="q"
+									>Most recent training organisations in Victoria since 2011
+									<span class="hint">(list up to 3)</span></span
+								>
+								<div class="grid">
+									<input type="text" name="vic_rto_1" placeholder="1." />
+									<input type="text" name="vic_rto_2" placeholder="2." />
+									<input type="text" name="vic_rto_3" placeholder="3." />
+								</div>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend>Unique Student Identifier (USI)</legend>
+							<p class="hint" style="margin: 0 0 10px">
+								From 1 January 2015, Pinnacle Institute of Education can be
+								prevented from issuing you a nationally recognised VET
+								qualification or statement of attainment if you do not have a
+								USI. Apply at
+								<a
+									href="https://www.usi.gov.au/your-usi/create-usi"
+									target="_blank"
+									rel="noopener"
+									>usi.gov.au/your-usi/create-usi</a
+								>. You may already have one if you have done any nationally
+								recognised training (first aid, RSA, white card, TAFE). Check
+								via the ‘Forgotten USI’ link at
+								<a
+									href="https://www.usi.gov.au/faqs/find-your-usi"
+									target="_blank"
+									rel="noopener"
+									>usi.gov.au/faqs/find-your-usi</a
+								>. You should not have more than one USI.
+							</p>
+							<div class="field" style="max-width: 340px">
+								<label for="usi"
+									>20. Enter your USI
+									<span style="font-weight: 400"
+										>(if you already have one or have applied)</span
+									></label
+								><input
+									type="text"
+									id="usi"
+									name="usi"
+									maxlength="10"
+									style="text-transform: uppercase; letter-spacing: 0.15em"
+								/>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+
+				<!-- ============ PRIVACY & DECLARATION ============ -->
+				<div class="card">
+					<div class="head">
+						Privacy Notice &amp; Declaration
+						<span class="step">Section 10 of 10</span>
+					</div>
+					<div class="body">
+						<details style="margin-bottom: 16px">
+							<summary
+								style="cursor: pointer; color: var(--blue); font-weight: 600"
+							>
+								Read the Privacy Notice &amp; Victorian Government VET Student
+								Enrolment Privacy Notice (click to expand)
+							</summary>
+							<div
+								class="readbox"
+								style="font-size: 0.85rem; max-height: 340px; overflow-y: auto"
+							>
+								<p>
+									<strong>Why we collect your personal information</strong> — As
+									a registered training organisation (RTO), we (Pinnacle
+									Institute of Education) collect your personal information so
+									we can process and manage your enrolment in a vocational
+									education and training (VET) course with us. We are required
+									to collect the information on this form, and as such cannot
+									enrol you as a student if this form is incomplete.
+								</p>
+								<p>
+									<strong>How we use your personal information</strong> — We use
+									your personal information to enable us to deliver VET courses
+									to you, and otherwise, as needed, to comply with our
+									obligations as an RTO.
+								</p>
+								<p>
+									<strong>How we disclose your personal information</strong> —
+									We are required by law (under the National Vocational
+									Education and Training Regulator Act 2011 (Cth) (NVETR Act))
+									to disclose the personal information we collect about you to
+									the National VET Data Collection kept by the National Centre
+									for Vocational Education Research Ltd (NCVER). We are also
+									authorised by law (under the NVETR Act) to disclose your
+									personal information to the relevant state or territory
+									training authority.
+								</p>
+								<p>
+									<strong
+										>How the NCVER and other bodies handle your personal
+										information</strong
+									>
+									— The NCVER will collect, hold, use and disclose your personal
+									information in accordance with the law, including the Privacy
+									Act 1988 (Cth) and the NVETR Act. Your personal information
+									may be used and disclosed by NCVER for purposes that include
+									populating authenticated VET transcripts; administration of
+									VET; facilitation of statistics and research relating to
+									education, including surveys and data linkage; and
+									understanding the VET market. The NCVER is authorised to
+									disclose information to the Australian Government Department
+									of Education, Skills and Employment (DESE), Commonwealth
+									authorities, and State and Territory authorities that deal
+									with matters relating to VET. The NCVER may also disclose
+									personal information to persons engaged by NCVER to conduct
+									research on NCVER’s behalf. The NCVER does not intend to
+									disclose your personal information to any overseas recipients.
+									See
+									<a
+										href="https://www.ncver.edu.au/privacy"
+										target="_blank"
+										rel="noopener"
+										>ncver.edu.au/privacy</a
+									>
+									and the DESE VET Privacy Notice at
+									<a
+										href="https://www.dese.gov.au/national-vet-data/vet-privacy-notice"
+										target="_blank"
+										rel="noopener"
+										>dese.gov.au/national-vet-data/vet-privacy-notice</a
+									>.
+								</p>
+								<p>
+									<strong>International student information</strong> — Pinnacle
+									Institute of Education is required to collect personal
+									information and information about course enrolment and
+									progress for all international students, which may be shared
+									with the Australian Government including the Department of
+									Education, Skills and Employment and the Department of Home
+									Affairs, as well as the Tuition Protection Service, for the
+									purposes of promoting compliance with the ESOS Act and the
+									National Code, assisting with the regulation of providers,
+									promoting compliance with student visa conditions, or
+									facilitating the monitoring and control of immigration.
+								</p>
+								<p>
+									<strong>Surveys</strong> — You may receive a student survey
+									run by a government department, NCVER employee, agent,
+									third-party contractor or another authorised agency. You may
+									opt out at the time of being contacted. You may also be
+									contacted by or on behalf of ASQA in relation to a survey
+									about the training and assessment services provided to you.
+								</p>
+								<p>
+									<strong>Contact information</strong> — At any time, you may
+									contact Pinnacle Institute of Education to request access to
+									your personal information, correct it, make a complaint about
+									how it has been handled, or ask a question about this Privacy
+									Notice:
+									<a href="mailto:info@pinnacleinstitute.com.au"
+										>info@pinnacleinstitute.com.au</a
+									>.
+								</p>
+								<hr />
+								<p>
+									<strong
+										>VICTORIAN GOVERNMENT VET STUDENT ENROLMENT PRIVACY
+										NOTICE</strong
+									>
+									— The Victorian Government, through the Department of
+									Education and Training, develops, monitors and funds VET in
+									Victoria. Any personal information collected by the Department
+									for VET purposes is protected in accordance with the Privacy
+									and Data Protection Act 2014 (Vic) and the Health Records Act
+									2001 (Vic).
+								</p>
+								<p>
+									<strong>Collection of your data</strong> — Pinnacle Institute
+									of Education is required to provide the Department with
+									student and training activity data, including personal
+									information collected in this enrolment form and unique
+									identifiers such as the VSN and USI, in accordance with the
+									Victorian VET Student Statistical Collection Guidelines.
+								</p>
+								<p>
+									<strong>Use of your data</strong> — The Department uses
+									student and training data for a range of VET purposes
+									including administration, monitoring and planning. Data may be
+									subjected to analytics.
+								</p>
+								<p>
+									<strong>Disclosure of your data</strong> — As necessary and
+									where lawful, the Department may disclose VET data to its
+									contractors, other government agencies, professional bodies
+									and/or other organisations for VET-related purposes, including
+									to the Commonwealth and NCVER.
+								</p>
+								<p>
+									<strong>Legal and regulatory</strong> — The Department’s
+									collection and handling of enrolment data and VSNs is
+									authorised under the Education and Training Reform Act 2006
+									(Vic); USIs are handled in accordance with the Student
+									Identifiers Act 2014 (Cth).
+								</p>
+								<p>
+									<strong>Survey participation</strong> — You may be contacted
+									to participate in an NCVER survey or a Department-endorsed
+									project, audit or review; you may opt out at the time of being
+									contacted.
+								</p>
+								<p>
+									<strong
+										>Consequences of not providing your information</strong
+									>
+									— Failure to provide your personal information may mean it is
+									not possible for you to enrol in VET and/or obtain a Victorian
+									Government VET subsidy.
+								</p>
+								<p>
+									<strong>Access, correction and complaints</strong> — You have
+									the right to seek access to or correction of your own personal
+									information, and to complain if you believe your privacy has
+									been breached. Contact Pinnacle Institute of Education’s
+									Privacy Officer at
+									<a href="mailto:info@pinnacleinstitute.com.au"
+										>info@pinnacleinstitute.com.au</a
+									>.
+								</p>
+							</div>
+						</details>
+
+						<div class="decl">
+							<span class="q"
+								>Student declaration and consent
+								<span class="hint">(please tick all)</span></span
+							>
+							<label class="inline"
+								><input
+									type="checkbox"
+									name="decl_privacy"
+									value="Yes"
+									required
+								/>
+								I acknowledge that I have read the Victorian Government’s VET
+								Student Enrolment Privacy Notice.</label
+							>
+							<label class="inline"
+								><input
+									type="checkbox"
+									name="decl_consent"
+									value="Yes"
+									required
+								/>
+								I consent to the collection, use and disclosure of my personal
+								information in accordance with the Privacy Notice above.</label
+							>
+							<label class="inline"
+								><input type="checkbox" name="decl_true" value="Yes" required />
+								I declare that the information I have provided, to the best of
+								my knowledge, is true, complete and correct.</label
+							>
+							<div class="grid g2" style="margin-top: 14px">
+								<div class="field">
+									<label class="req" for="sig_name"
+										>Student full name (acts as your signature)</label
+									><input type="text" id="sig_name" name="sig_name" required />
+								</div>
+								<div class="field">
+									<label class="req" for="sig_date">Date</label
+									><input type="date" id="sig_date" name="sig_date" required />
+								</div>
+							</div>
+						</div>
+
+						<fieldset style="margin-top: 20px">
+							<legend>
+								Parent / guardian approval
+								<span class="hint" style="font-weight: 400"
+									>— required if you are under 18 years of age at time of
+									application</span
+								>
+							</legend>
+							<label class="inline"
+								><input
+									type="checkbox"
+									id="under18"
+									name="under18"
+									value="Yes"
+									data-reveal="guardianblock"
+								/>
+								I am under 18 years of age</label
+							>
+							<div class="reveal" id="guardianblock">
+								<div class="grid g2">
+									<div class="field">
+										<label for="guardian_name"
+											>Parent / guardian full name (acts as signature)</label
+										><input
+											type="text"
+											id="guardian_name"
+											name="guardian_name"
+										/>
+									</div>
+									<div class="field">
+										<label for="guardian_date">Date</label
+										><input
+											type="date"
+											id="guardian_date"
+											name="guardian_date"
+										/>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+
+						<div class="actions">
+							<button type="submit" class="submit" id="submitbtn">
+								Submit enrolment form
+							</button>
+							<div class="status" id="status"></div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<footer class="foot">
+			Hannan IT Pty Ltd t/a Pinnacle Institute of Education&nbsp; RTO: 20738 |
+			CRICOS: 04162E<br />
+			Level 11, 18-38A Siddeley St Docklands VIC 3008 | PO Box 115, Heidelberg,
+			Victoria, 3084<br />
+			Phone: 1300 917 130 | Email:
+			<a href="mailto:info@pinnacleinstitute.com.au"
+				>info@pinnacleinstitute.com.au</a
+			><br />
+			SC6.2-I – Enrolment Form V3.0 (ID 186643)
+		</footer>
+
+		<script>
+			/* ================================================================
+   PINNACLE FORMS — CONFIGURATION
+   After deploying the Google Apps Script (see SETUP instructions),
+   paste your Web App URL between the quotes below.
+   ================================================================ */
+			var SCRIPT_URL =
+				"https://script.google.com/a/macros/pinnacleinstitute.com.au/s/AKfycbxMJf3eyNerc3KsHuCk-V853qAslYi8SQy9B_bN9afOtY11VYBtmxqoEjmlrg3svnR7uw/exec"(
+					function () {
+						"use strict";
+
+						/* ---------- show/hide conditional blocks ---------- */
+						function setReveal(id, open) {
+							var el = document.getElementById(id);
+							if (!el) return;
+							el.classList.toggle("open", open);
+							// required fields inside a hidden block must not block submission
+							el.querySelectorAll("[data-was-required]").forEach(function (f) {
+								f.required = open;
+							});
+							if (!open) {
+								el.querySelectorAll("input,textarea,select").forEach(
+									function (f) {
+										if (f.type === "checkbox" || f.type === "radio")
+											f.checked = false;
+										else f.value = "";
+									},
+								);
+							}
+						}
+						document
+							.querySelectorAll("[data-reveal],[data-reveal-close]")
+							.forEach(function (ctrl) {
+								ctrl.addEventListener("change", function () {
+									var openIds = (ctrl.getAttribute("data-reveal") || "")
+										.split(",")
+										.filter(Boolean);
+									var closeIds = (ctrl.getAttribute("data-reveal-close") || "")
+										.split(",")
+										.filter(Boolean);
+									var on = ctrl.checked;
+									openIds.forEach(function (id) {
+										setReveal(id, on);
+									});
+									if (on)
+										closeIds.forEach(function (id) {
+											setReveal(id, false);
+										});
+									// when a radio opens a reveal, siblings with data-reveal must close theirs
+									if (ctrl.type === "radio") {
+										document
+											.querySelectorAll('input[name="' + ctrl.name + '"]')
+											.forEach(function (sib) {
+												if (sib !== ctrl) {
+													(sib.getAttribute("data-reveal") || "")
+														.split(",")
+														.filter(Boolean)
+														.forEach(function (id) {
+															if (openIds.indexOf(id) === -1)
+																setReveal(id, false);
+														});
+												}
+											});
+									}
+								});
+							});
+
+						/* ---------- build rating grids from data (LLN form only) ---------- */
+						function buildGrid(tableId, prefix, items, options) {
+							var t = document.getElementById(tableId);
+							if (!t) return;
+							items.forEach(function (item, i) {
+								var tr = document.createElement("tr");
+								var td = document.createElement("td");
+								td.textContent = item.label;
+								tr.appendChild(td);
+								options.forEach(function (opt) {
+									var c = document.createElement("td");
+									var input = document.createElement("input");
+									input.type = "radio";
+									input.name = prefix + "_" + item.key;
+									input.value = opt;
+									input.required = true;
+									input.setAttribute("aria-label", item.label + " — " + opt);
+									c.appendChild(input);
+									tr.appendChild(c);
+								});
+								t.appendChild(tr);
+							});
+						}
+
+						buildGrid(
+							"selfreflect",
+							"ican",
+							[
+								{ key: "signs", label: "understand signs" },
+								{ key: "timesheet", label: "fill in a time sheet" },
+								{
+									key: "change",
+									label: "count and check change when shopping",
+								},
+								{ key: "text", label: "send a text message" },
+								{
+									key: "internet",
+									label:
+										"use the internet to get information like telephone numbers",
+								},
+								{ key: "leaveform", label: "fill in a leave form" },
+								{ key: "memo", label: "read a staff memo" },
+								{ key: "email", label: "use a computer to email" },
+								{
+									key: "calculator",
+									label: "use a calculator for + \u2212 \u00D7 \u00F7",
+								},
+								{ key: "newspaper", label: "read a newspaper" },
+								{ key: "roster", label: "read a work roster" },
+								{
+									key: "instructions",
+									label:
+										"follow instructions for mixing a solution or to follow a recipe",
+								},
+								{ key: "map", label: "read a Google map or street directory" },
+								{ key: "msds", label: "read and understand an MSDS" },
+								{ key: "manual", label: "use an equipment manual" },
+								{ key: "logbook", label: "complete a log book" },
+								{ key: "incident", label: "write an incident report" },
+							],
+							["Yes", "Sometimes", "No"],
+						);
+
+						buildGrid(
+							"selfrate",
+							"rate",
+							[
+								{ key: "communication", label: "Communication" },
+								{ key: "reading", label: "Reading" },
+								{ key: "writing", label: "Writing" },
+								{ key: "numeracy", label: "Numeracy" },
+							],
+							["Poor", "Average", "Good", "Excellent"],
+						);
+
+						buildGrid(
+							"feedback",
+							"fb",
+							[
+								{
+									key: "explained",
+									label: "The assessor explained the assessment process well",
+								},
+								{
+									key: "environment",
+									label: "The environment for assessment was acceptable",
+								},
+								{ key: "difficult", label: "The assessment was difficult" },
+								{
+									key: "informative",
+									label: "The interview with the assessor was informative",
+								},
+								{
+									key: "helpful",
+									label: "The feedback from the assessor was helpful",
+								},
+								{
+									key: "necessary",
+									label:
+										"I feel an assessment like this is necessary to enter the security industry",
+								},
+							],
+							["1", "2", "3", "4", "5"],
+						);
+
+						/* ---------- remember which fields inside reveals are required ---------- */
+						document
+							.querySelectorAll(".reveal [required]")
+							.forEach(function (f) {
+								f.setAttribute("data-was-required", "1");
+								f.required = false;
+							});
+
+						/* ---------- word counter for the 30-word answer ---------- */
+						var lit4 = document.getElementById("lit4");
+						var wc = document.getElementById("wordcount");
+						if (lit4 && wc) {
+							lit4.addEventListener("input", function () {
+								var n = lit4.value.trim().split(/\s+/).filter(Boolean).length;
+								wc.textContent = n;
+								wc.style.color = n >= 30 ? "var(--ok)" : "var(--error)";
+							});
+						}
+
+						/* ---------- default today's date on signature date fields ---------- */
+						["sig_date", "decl_date"].forEach(function (id) {
+							var f = document.getElementById(id);
+							if (f && !f.value)
+								f.value = new Date().toISOString().slice(0, 10);
+						});
+
+						/* ---------- submission ---------- */
+						var form = document.getElementById("mainform");
+						var btn = document.getElementById("submitbtn");
+						var status = document.getElementById("status");
+
+						function showStatus(cls, msg) {
+							status.className = "status " + cls;
+							status.textContent = msg;
+							status.scrollIntoView({ behavior: "smooth", block: "center" });
+						}
+
+						form.addEventListener("submit", function (ev) {
+							ev.preventDefault();
+
+							/* custom check: 30-word minimum */
+							if (lit4) {
+								var n = lit4.value.trim().split(/\s+/).filter(Boolean).length;
+								if (n < 30) {
+									lit4.setCustomValidity("Please write at least 30 words.");
+								} else {
+									lit4.setCustomValidity("");
+								}
+							}
+
+							if (!form.checkValidity()) {
+								form.reportValidity();
+								var bad = form.querySelector(":invalid");
+								if (bad)
+									bad.scrollIntoView({ behavior: "smooth", block: "center" });
+								return;
+							}
+
+							if (SCRIPT_URL.indexOf("PASTE_") === 0) {
+								showStatus(
+									"err",
+									"This form is not connected yet. Please contact the institute — admin: paste the Apps Script URL into shared config.",
+								);
+								return;
+							}
+
+							btn.disabled = true;
+							btn.textContent = "Submitting\u2026";
+
+							var fd = new FormData(form);
+							var params = new URLSearchParams();
+							params.append("formType", form.getAttribute("data-formtype"));
+							params.append(
+								"submittedAt",
+								new Date().toLocaleString("en-AU", {
+									timeZone: "Australia/Melbourne",
+								}),
+							);
+
+							/* merge duplicate names (checkbox groups) into comma-separated values */
+							var seen = {};
+							fd.forEach(function (v, k) {
+								if (v === "" || v == null) return;
+								seen[k] = seen[k] ? seen[k] + ", " + v : String(v);
+							});
+							Object.keys(seen).forEach(function (k) {
+								params.append(k, seen[k]);
+							});
+
+							fetch(SCRIPT_URL, {
+								method: "POST",
+								mode: "no-cors",
+								body: params,
+							})
+								.then(function () {
+									form
+										.querySelectorAll(".card, .actions button")
+										.forEach(function (el) {
+											/* keep visible */
+										});
+									showStatus(
+										"ok",
+										"\u2713 Thank you! Your form has been submitted successfully. Pinnacle Institute of Education will be in touch. You may now close this page.",
+									);
+									btn.textContent = "Submitted";
+								})
+								.catch(function () {
+									showStatus(
+										"err",
+										"Something went wrong sending your form. Please check your internet connection and press Submit again, or contact info@pinnacleinstitute.com.au.",
+									);
+									btn.disabled = false;
+									btn.textContent = "Try again";
+								});
+						});
+					},
+				)();
+		</script>
+	</body>
+</html>
