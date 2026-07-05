@@ -4,7 +4,16 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Enrolment Form — Pinnacle Institute of Education</title>
+		<meta
+			name="description"
+			content="Online enrolment form for Pinnacle Institute of Education (RTO 20738, CRICOS 04162E)."
+		/>
 		<meta name="robots" content="noindex" />
+		<link rel="icon" href="favicon.ico" sizes="48x48" />
+		<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="favicon-16.png" sizes="16x16" />
+		<link rel="icon" type="image/png" href="favicon-192.png" sizes="192x192" />
+		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap"
@@ -2220,8 +2229,7 @@
 		</div>
 
 		<footer class="foot">
-			Hannan IT Pty Ltd t/a Pinnacle Institute of Education&nbsp; RTO: 20738 |
-			CRICOS: 04162E<br />
+			Pinnacle Institute of Education&nbsp; RTO: 20738 | CRICOS: 04162E<br />
 			Level 11, 18-38A Siddeley St Docklands VIC 3008 | PO Box 115, Heidelberg,
 			Victoria, 3084<br />
 			Phone: 1300 917 130 | Email:
@@ -2238,288 +2246,275 @@
    paste your Web App URL between the quotes below.
    ================================================================ */
 			var SCRIPT_URL =
-				"https://script.google.com/a/macros/pinnacleinstitute.com.au/s/AKfycbxMJf3eyNerc3KsHuCk-V853qAslYi8SQy9B_bN9afOtY11VYBtmxqoEjmlrg3svnR7uw/exec"(
-					function () {
-						"use strict";
+				"https://script.google.com/a/macros/pinnacleinstitute.com.au/s/AKfycbxMJf3eyNerc3KsHuCk-V853qAslYi8SQy9B_bN9afOtY11VYBtmxqoEjmlrg3svnR7uw/exec";
 
-						/* ---------- show/hide conditional blocks ---------- */
-						function setReveal(id, open) {
-							var el = document.getElementById(id);
-							if (!el) return;
-							el.classList.toggle("open", open);
-							// required fields inside a hidden block must not block submission
-							el.querySelectorAll("[data-was-required]").forEach(function (f) {
-								f.required = open;
+			(function () {
+				"use strict";
+
+				/* ---------- show/hide conditional blocks ---------- */
+				function setReveal(id, open) {
+					var el = document.getElementById(id);
+					if (!el) return;
+					el.classList.toggle("open", open);
+					// required fields inside a hidden block must not block submission
+					el.querySelectorAll("[data-was-required]").forEach(function (f) {
+						f.required = open;
+					});
+					if (!open) {
+						el.querySelectorAll("input,textarea,select").forEach(function (f) {
+							if (f.type === "checkbox" || f.type === "radio")
+								f.checked = false;
+							else f.value = "";
+						});
+					}
+				}
+				document
+					.querySelectorAll("[data-reveal],[data-reveal-close]")
+					.forEach(function (ctrl) {
+						ctrl.addEventListener("change", function () {
+							var openIds = (ctrl.getAttribute("data-reveal") || "")
+								.split(",")
+								.filter(Boolean);
+							var closeIds = (ctrl.getAttribute("data-reveal-close") || "")
+								.split(",")
+								.filter(Boolean);
+							var on = ctrl.checked;
+							openIds.forEach(function (id) {
+								setReveal(id, on);
 							});
-							if (!open) {
-								el.querySelectorAll("input,textarea,select").forEach(
-									function (f) {
-										if (f.type === "checkbox" || f.type === "radio")
-											f.checked = false;
-										else f.value = "";
-									},
-								);
-							}
-						}
-						document
-							.querySelectorAll("[data-reveal],[data-reveal-close]")
-							.forEach(function (ctrl) {
-								ctrl.addEventListener("change", function () {
-									var openIds = (ctrl.getAttribute("data-reveal") || "")
-										.split(",")
-										.filter(Boolean);
-									var closeIds = (ctrl.getAttribute("data-reveal-close") || "")
-										.split(",")
-										.filter(Boolean);
-									var on = ctrl.checked;
-									openIds.forEach(function (id) {
-										setReveal(id, on);
+							if (on)
+								closeIds.forEach(function (id) {
+									setReveal(id, false);
+								});
+							// when a radio opens a reveal, siblings with data-reveal must close theirs
+							if (ctrl.type === "radio") {
+								document
+									.querySelectorAll('input[name="' + ctrl.name + '"]')
+									.forEach(function (sib) {
+										if (sib !== ctrl) {
+											(sib.getAttribute("data-reveal") || "")
+												.split(",")
+												.filter(Boolean)
+												.forEach(function (id) {
+													if (openIds.indexOf(id) === -1) setReveal(id, false);
+												});
+										}
 									});
-									if (on)
-										closeIds.forEach(function (id) {
-											setReveal(id, false);
-										});
-									// when a radio opens a reveal, siblings with data-reveal must close theirs
-									if (ctrl.type === "radio") {
-										document
-											.querySelectorAll('input[name="' + ctrl.name + '"]')
-											.forEach(function (sib) {
-												if (sib !== ctrl) {
-													(sib.getAttribute("data-reveal") || "")
-														.split(",")
-														.filter(Boolean)
-														.forEach(function (id) {
-															if (openIds.indexOf(id) === -1)
-																setReveal(id, false);
-														});
-												}
-											});
-									}
-								});
-							});
-
-						/* ---------- build rating grids from data (LLN form only) ---------- */
-						function buildGrid(tableId, prefix, items, options) {
-							var t = document.getElementById(tableId);
-							if (!t) return;
-							items.forEach(function (item, i) {
-								var tr = document.createElement("tr");
-								var td = document.createElement("td");
-								td.textContent = item.label;
-								tr.appendChild(td);
-								options.forEach(function (opt) {
-									var c = document.createElement("td");
-									var input = document.createElement("input");
-									input.type = "radio";
-									input.name = prefix + "_" + item.key;
-									input.value = opt;
-									input.required = true;
-									input.setAttribute("aria-label", item.label + " — " + opt);
-									c.appendChild(input);
-									tr.appendChild(c);
-								});
-								t.appendChild(tr);
-							});
-						}
-
-						buildGrid(
-							"selfreflect",
-							"ican",
-							[
-								{ key: "signs", label: "understand signs" },
-								{ key: "timesheet", label: "fill in a time sheet" },
-								{
-									key: "change",
-									label: "count and check change when shopping",
-								},
-								{ key: "text", label: "send a text message" },
-								{
-									key: "internet",
-									label:
-										"use the internet to get information like telephone numbers",
-								},
-								{ key: "leaveform", label: "fill in a leave form" },
-								{ key: "memo", label: "read a staff memo" },
-								{ key: "email", label: "use a computer to email" },
-								{
-									key: "calculator",
-									label: "use a calculator for + \u2212 \u00D7 \u00F7",
-								},
-								{ key: "newspaper", label: "read a newspaper" },
-								{ key: "roster", label: "read a work roster" },
-								{
-									key: "instructions",
-									label:
-										"follow instructions for mixing a solution or to follow a recipe",
-								},
-								{ key: "map", label: "read a Google map or street directory" },
-								{ key: "msds", label: "read and understand an MSDS" },
-								{ key: "manual", label: "use an equipment manual" },
-								{ key: "logbook", label: "complete a log book" },
-								{ key: "incident", label: "write an incident report" },
-							],
-							["Yes", "Sometimes", "No"],
-						);
-
-						buildGrid(
-							"selfrate",
-							"rate",
-							[
-								{ key: "communication", label: "Communication" },
-								{ key: "reading", label: "Reading" },
-								{ key: "writing", label: "Writing" },
-								{ key: "numeracy", label: "Numeracy" },
-							],
-							["Poor", "Average", "Good", "Excellent"],
-						);
-
-						buildGrid(
-							"feedback",
-							"fb",
-							[
-								{
-									key: "explained",
-									label: "The assessor explained the assessment process well",
-								},
-								{
-									key: "environment",
-									label: "The environment for assessment was acceptable",
-								},
-								{ key: "difficult", label: "The assessment was difficult" },
-								{
-									key: "informative",
-									label: "The interview with the assessor was informative",
-								},
-								{
-									key: "helpful",
-									label: "The feedback from the assessor was helpful",
-								},
-								{
-									key: "necessary",
-									label:
-										"I feel an assessment like this is necessary to enter the security industry",
-								},
-							],
-							["1", "2", "3", "4", "5"],
-						);
-
-						/* ---------- remember which fields inside reveals are required ---------- */
-						document
-							.querySelectorAll(".reveal [required]")
-							.forEach(function (f) {
-								f.setAttribute("data-was-required", "1");
-								f.required = false;
-							});
-
-						/* ---------- word counter for the 30-word answer ---------- */
-						var lit4 = document.getElementById("lit4");
-						var wc = document.getElementById("wordcount");
-						if (lit4 && wc) {
-							lit4.addEventListener("input", function () {
-								var n = lit4.value.trim().split(/\s+/).filter(Boolean).length;
-								wc.textContent = n;
-								wc.style.color = n >= 30 ? "var(--ok)" : "var(--error)";
-							});
-						}
-
-						/* ---------- default today's date on signature date fields ---------- */
-						["sig_date", "decl_date"].forEach(function (id) {
-							var f = document.getElementById(id);
-							if (f && !f.value)
-								f.value = new Date().toISOString().slice(0, 10);
+							}
 						});
+					});
 
-						/* ---------- submission ---------- */
-						var form = document.getElementById("mainform");
-						var btn = document.getElementById("submitbtn");
-						var status = document.getElementById("status");
+				/* ---------- build rating grids from data (LLN form only) ---------- */
+				function buildGrid(tableId, prefix, items, options) {
+					var t = document.getElementById(tableId);
+					if (!t) return;
+					items.forEach(function (item, i) {
+						var tr = document.createElement("tr");
+						var td = document.createElement("td");
+						td.textContent = item.label;
+						tr.appendChild(td);
+						options.forEach(function (opt) {
+							var c = document.createElement("td");
+							var input = document.createElement("input");
+							input.type = "radio";
+							input.name = prefix + "_" + item.key;
+							input.value = opt;
+							input.required = true;
+							input.setAttribute("aria-label", item.label + " — " + opt);
+							c.appendChild(input);
+							tr.appendChild(c);
+						});
+						t.appendChild(tr);
+					});
+				}
 
-						function showStatus(cls, msg) {
-							status.className = "status " + cls;
-							status.textContent = msg;
-							status.scrollIntoView({ behavior: "smooth", block: "center" });
+				buildGrid(
+					"selfreflect",
+					"ican",
+					[
+						{ key: "signs", label: "understand signs" },
+						{ key: "timesheet", label: "fill in a time sheet" },
+						{ key: "change", label: "count and check change when shopping" },
+						{ key: "text", label: "send a text message" },
+						{
+							key: "internet",
+							label:
+								"use the internet to get information like telephone numbers",
+						},
+						{ key: "leaveform", label: "fill in a leave form" },
+						{ key: "memo", label: "read a staff memo" },
+						{ key: "email", label: "use a computer to email" },
+						{
+							key: "calculator",
+							label: "use a calculator for + \u2212 \u00D7 \u00F7",
+						},
+						{ key: "newspaper", label: "read a newspaper" },
+						{ key: "roster", label: "read a work roster" },
+						{
+							key: "instructions",
+							label:
+								"follow instructions for mixing a solution or to follow a recipe",
+						},
+						{ key: "map", label: "read a Google map or street directory" },
+						{ key: "msds", label: "read and understand an MSDS" },
+						{ key: "manual", label: "use an equipment manual" },
+						{ key: "logbook", label: "complete a log book" },
+						{ key: "incident", label: "write an incident report" },
+					],
+					["Yes", "Sometimes", "No"],
+				);
+
+				buildGrid(
+					"selfrate",
+					"rate",
+					[
+						{ key: "communication", label: "Communication" },
+						{ key: "reading", label: "Reading" },
+						{ key: "writing", label: "Writing" },
+						{ key: "numeracy", label: "Numeracy" },
+					],
+					["Poor", "Average", "Good", "Excellent"],
+				);
+
+				buildGrid(
+					"feedback",
+					"fb",
+					[
+						{
+							key: "explained",
+							label: "The assessor explained the assessment process well",
+						},
+						{
+							key: "environment",
+							label: "The environment for assessment was acceptable",
+						},
+						{ key: "difficult", label: "The assessment was difficult" },
+						{
+							key: "informative",
+							label: "The interview with the assessor was informative",
+						},
+						{
+							key: "helpful",
+							label: "The feedback from the assessor was helpful",
+						},
+						{
+							key: "necessary",
+							label:
+								"I feel an assessment like this is necessary to enter the security industry",
+						},
+					],
+					["1", "2", "3", "4", "5"],
+				);
+
+				/* ---------- remember which fields inside reveals are required ---------- */
+				document.querySelectorAll(".reveal [required]").forEach(function (f) {
+					f.setAttribute("data-was-required", "1");
+					f.required = false;
+				});
+
+				/* ---------- word counter for the 30-word answer ---------- */
+				var lit4 = document.getElementById("lit4");
+				var wc = document.getElementById("wordcount");
+				if (lit4 && wc) {
+					lit4.addEventListener("input", function () {
+						var n = lit4.value.trim().split(/\s+/).filter(Boolean).length;
+						wc.textContent = n;
+						wc.style.color = n >= 30 ? "var(--ok)" : "var(--error)";
+					});
+				}
+
+				/* ---------- default today's date on signature date fields ---------- */
+				["sig_date", "decl_date"].forEach(function (id) {
+					var f = document.getElementById(id);
+					if (f && !f.value) f.value = new Date().toISOString().slice(0, 10);
+				});
+
+				/* ---------- submission ---------- */
+				var form = document.getElementById("mainform");
+				var btn = document.getElementById("submitbtn");
+				var status = document.getElementById("status");
+
+				function showStatus(cls, msg) {
+					status.className = "status " + cls;
+					status.textContent = msg;
+					status.scrollIntoView({ behavior: "smooth", block: "center" });
+				}
+
+				form.addEventListener("submit", function (ev) {
+					ev.preventDefault();
+
+					/* custom check: 30-word minimum */
+					if (lit4) {
+						var n = lit4.value.trim().split(/\s+/).filter(Boolean).length;
+						if (n < 30) {
+							lit4.setCustomValidity("Please write at least 30 words.");
+						} else {
+							lit4.setCustomValidity("");
 						}
+					}
 
-						form.addEventListener("submit", function (ev) {
-							ev.preventDefault();
+					if (!form.checkValidity()) {
+						form.reportValidity();
+						var bad = form.querySelector(":invalid");
+						if (bad)
+							bad.scrollIntoView({ behavior: "smooth", block: "center" });
+						return;
+					}
 
-							/* custom check: 30-word minimum */
-							if (lit4) {
-								var n = lit4.value.trim().split(/\s+/).filter(Boolean).length;
-								if (n < 30) {
-									lit4.setCustomValidity("Please write at least 30 words.");
-								} else {
-									lit4.setCustomValidity("");
-								}
-							}
+					if (SCRIPT_URL.indexOf("PASTE_") === 0) {
+						showStatus(
+							"err",
+							"This form is not connected yet. Please contact the institute — admin: paste the Apps Script URL into shared config.",
+						);
+						return;
+					}
 
-							if (!form.checkValidity()) {
-								form.reportValidity();
-								var bad = form.querySelector(":invalid");
-								if (bad)
-									bad.scrollIntoView({ behavior: "smooth", block: "center" });
-								return;
-							}
+					btn.disabled = true;
+					btn.textContent = "Submitting\u2026";
 
-							if (SCRIPT_URL.indexOf("PASTE_") === 0) {
-								showStatus(
-									"err",
-									"This form is not connected yet. Please contact the institute — admin: paste the Apps Script URL into shared config.",
-								);
-								return;
-							}
+					var fd = new FormData(form);
+					var params = new URLSearchParams();
+					params.append("formType", form.getAttribute("data-formtype"));
+					params.append(
+						"submittedAt",
+						new Date().toLocaleString("en-AU", {
+							timeZone: "Australia/Melbourne",
+						}),
+					);
 
-							btn.disabled = true;
-							btn.textContent = "Submitting\u2026";
+					/* merge duplicate names (checkbox groups) into comma-separated values */
+					var seen = {};
+					fd.forEach(function (v, k) {
+						if (v === "" || v == null) return;
+						seen[k] = seen[k] ? seen[k] + ", " + v : String(v);
+					});
+					Object.keys(seen).forEach(function (k) {
+						params.append(k, seen[k]);
+					});
 
-							var fd = new FormData(form);
-							var params = new URLSearchParams();
-							params.append("formType", form.getAttribute("data-formtype"));
-							params.append(
-								"submittedAt",
-								new Date().toLocaleString("en-AU", {
-									timeZone: "Australia/Melbourne",
-								}),
+					fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: params })
+						.then(function () {
+							form
+								.querySelectorAll(".card, .actions button")
+								.forEach(function (el) {
+									/* keep visible */
+								});
+							showStatus(
+								"ok",
+								"\u2713 Thank you! Your form has been submitted successfully. Pinnacle Institute of Education will be in touch. You may now close this page.",
 							);
-
-							/* merge duplicate names (checkbox groups) into comma-separated values */
-							var seen = {};
-							fd.forEach(function (v, k) {
-								if (v === "" || v == null) return;
-								seen[k] = seen[k] ? seen[k] + ", " + v : String(v);
-							});
-							Object.keys(seen).forEach(function (k) {
-								params.append(k, seen[k]);
-							});
-
-							fetch(SCRIPT_URL, {
-								method: "POST",
-								mode: "no-cors",
-								body: params,
-							})
-								.then(function () {
-									form
-										.querySelectorAll(".card, .actions button")
-										.forEach(function (el) {
-											/* keep visible */
-										});
-									showStatus(
-										"ok",
-										"\u2713 Thank you! Your form has been submitted successfully. Pinnacle Institute of Education will be in touch. You may now close this page.",
-									);
-									btn.textContent = "Submitted";
-								})
-								.catch(function () {
-									showStatus(
-										"err",
-										"Something went wrong sending your form. Please check your internet connection and press Submit again, or contact info@pinnacleinstitute.com.au.",
-									);
-									btn.disabled = false;
-									btn.textContent = "Try again";
-								});
+							btn.textContent = "Submitted";
+						})
+						.catch(function () {
+							showStatus(
+								"err",
+								"Something went wrong sending your form. Please check your internet connection and press Submit again, or contact info@pinnacleinstitute.com.au.",
+							);
+							btn.disabled = false;
+							btn.textContent = "Try again";
 						});
-					},
-				)();
+				});
+			})();
 		</script>
 	</body>
 </html>
