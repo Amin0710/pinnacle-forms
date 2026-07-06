@@ -408,6 +408,24 @@
 			:invalid[data-touched] {
 				border-color: var(--error);
 			}
+			.field-error {
+				color: var(--error);
+				font-size: 0.85rem;
+				margin-top: 4px;
+			}
+			.invalid {
+				border-color: var(--error) !important;
+			}
+			.error-summary {
+				color: var(--error);
+				background: #fbeae8;
+				border: 1px solid var(--error);
+				border-radius: 8px;
+				padding: 10px 14px;
+				margin-bottom: 14px;
+				font-weight: 600;
+				font-size: 0.9rem;
+			}
 
 			footer.foot {
 				max-width: 860px;
@@ -2280,6 +2298,7 @@
 						</fieldset>
 
 						<div class="actions">
+							<div class="error-summary" id="errorSummary" role="alert" hidden></div>
 							<button type="submit" class="submit" id="submitbtn">
 								Submit enrolment form
 							</button>
@@ -2332,7 +2351,7 @@
 				"use strict";
 
 				/* Build marker — bump on every change so we can confirm which version is live */
-				console.log("Pinnacle forms build 2026-07-06-2");
+				console.log("Pinnacle forms build 2026-07-06-3");
 
 				/* ---------- show/hide conditional blocks ---------- */
 				function setReveal(id, open) {
@@ -2625,29 +2644,147 @@
 					(ok ? modalBox : modalClose).focus();
 				}
 
+				/* ---------- inline validation errors ---------- */
+				var errorSummary = document.getElementById("errorSummary");
+				var errSeq = 0;
+
+				function runCustomChecks() {
+					if (lit4) {
+						var words = lit4.value.trim().split(/\s+/).filter(Boolean).length;
+						lit4.setCustomValidity(words < 30 ? "Please write at least 30 words." : "");
+					}
+					validateUsi();
+				}
+
+				function fieldMessage(el) {
+					if (el.validity.valueMissing) return "This field is required";
+					return el.validationMessage || "Please check this field";
+				}
+
+				function isGroup(el) {
+					return (el.type === "radio" || el.type === "checkbox") && !!el.name;
+				}
+
+				/* where a group's single message lives: prefer .choices, then table row, then fieldset */
+				function groupContainer(el) {
+					return (
+						el.closest(".choices") ||
+						el.closest("tr") ||
+						el.closest("fieldset") ||
+						el.parentElement
+					);
+				}
+
+				function clearAllErrors() {
+					form.querySelectorAll(".field-error").forEach(function (m) {
+						m.remove();
+					});
+					form.querySelectorAll(".invalid").forEach(function (x) {
+						x.classList.remove("invalid");
+					});
+					form.querySelectorAll("[aria-invalid]").forEach(function (x) {
+						x.removeAttribute("aria-invalid");
+						x.removeAttribute("aria-describedby");
+					});
+				}
+
+				function updateSummary() {
+					var n = form.querySelectorAll(".field-error").length;
+					if (errorSummary) {
+						if (n > 0) {
+							errorSummary.textContent =
+								"Please fix the " + n + " highlighted field" + (n === 1 ? "" : "s") + " above.";
+							errorSummary.hidden = false;
+						} else {
+							errorSummary.hidden = true;
+							errorSummary.textContent = "";
+						}
+					}
+					return n;
+				}
+
+				/* build inline messages for every invalid control; returns the count */
+				function showErrors() {
+					clearAllErrors();
+					var invalids = Array.prototype.slice.call(form.querySelectorAll(":invalid"));
+					var groups = {};
+					var units = [];
+					invalids.forEach(function (el) {
+						if (isGroup(el)) {
+							if (groups[el.name]) {
+								groups[el.name].controls.push(el);
+								return;
+							}
+							var u = { control: el, controls: [el], group: true };
+							groups[el.name] = u;
+							units.push(u);
+						} else {
+							units.push({ control: el, controls: [el], group: false });
+						}
+					});
+					units.forEach(function (u) {
+						var id = "err-" + form.id + "-" + ++errSeq;
+						var msg = document.createElement("div");
+						msg.className = "field-error";
+						msg.id = id;
+						msg.textContent = fieldMessage(u.control);
+						if (u.group) {
+							var cont = groupContainer(u.control);
+							cont.appendChild(msg);
+							cont.classList.add("invalid");
+						} else {
+							u.control.classList.add("invalid");
+							u.control.insertAdjacentElement("afterend", msg);
+						}
+						u.controls.forEach(function (x) {
+							x.setAttribute("aria-invalid", "true");
+							x.setAttribute("aria-describedby", id);
+						});
+					});
+					updateSummary();
+					if (units.length) {
+						var first = units[0].control;
+						first.scrollIntoView({ behavior: "smooth", block: "center" });
+						try {
+							first.focus();
+						} catch (err) {}
+					}
+					return units.length;
+				}
+
+				/* clear a field's error the moment it becomes valid */
+				function liveRevalidate() {
+					if (!form.querySelector(".field-error")) return;
+					runCustomChecks();
+					form.querySelectorAll(".field-error").forEach(function (msg) {
+						var controls = form.querySelectorAll('[aria-describedby="' + msg.id + '"]');
+						if (!controls.length) return;
+						var stillInvalid = false;
+						controls.forEach(function (x) {
+							if (!x.checkValidity()) stillInvalid = true;
+						});
+						if (!stillInvalid) {
+							controls.forEach(function (x) {
+								x.classList.remove("invalid");
+								x.removeAttribute("aria-invalid");
+								x.removeAttribute("aria-describedby");
+							});
+							var host = msg.parentElement;
+							msg.remove();
+							if (host && !host.querySelector(".field-error"))
+								host.classList.remove("invalid");
+						}
+					});
+					updateSummary();
+				}
+				form.addEventListener("input", liveRevalidate);
+				form.addEventListener("change", liveRevalidate);
+
 				form.addEventListener("submit", function (ev) {
 					ev.preventDefault();
 
-					/* custom check: 30-word minimum */
-					if (lit4) {
-						var n = lit4.value.trim().split(/\s+/).filter(Boolean).length;
-						if (n < 30) {
-							lit4.setCustomValidity("Please write at least 30 words.");
-						} else {
-							lit4.setCustomValidity("");
-						}
-					}
-
-					/* custom check: USI format (10 alphanumeric) */
-					validateUsi();
-
-					if (!form.checkValidity()) {
-						form.reportValidity();
-						var bad = form.querySelector(":invalid");
-						if (bad)
-							bad.scrollIntoView({ behavior: "smooth", block: "center" });
-						return;
-					}
+					runCustomChecks();
+					if (showErrors() > 0) return;
 
 					if (SCRIPT_URL.indexOf("PASTE_") === 0) {
 						showStatus(

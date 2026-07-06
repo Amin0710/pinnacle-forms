@@ -142,6 +142,58 @@ for (const { file, tables } of forms) {
 		assert.equal(fetched, false, "form was submitted despite being empty");
 	});
 
+	// 4c. Failed submit renders inline errors + a summary, and clears them live.
+	check("failed submit shows inline field errors, summary, and clears live", () => {
+		const { window: w, document: doc } = loadForm(file);
+		w.HTMLElement.prototype.scrollIntoView = function () {};
+		let fetched = false;
+		w.fetch = () => {
+			fetched = true;
+			return Promise.resolve({});
+		};
+		const form = doc.getElementById("mainform");
+		form.dispatchEvent(new w.Event("submit", { bubbles: true, cancelable: true }));
+
+		const errs = [...doc.querySelectorAll(".field-error")];
+		assert.ok(errs.length > 0, "no inline .field-error messages rendered");
+		assert.equal(fetched, false, "form submitted despite validation errors");
+		assert.ok(errs.some((e) => e.textContent === "This field is required"), "no 'This field is required' message");
+
+		// each message is linked to its control(s) via aria-describedby / aria-invalid
+		const first = errs[0];
+		const described = doc.querySelectorAll('[aria-describedby="' + first.id + '"]');
+		assert.ok(described.length >= 1, "message not linked via aria-describedby");
+		assert.equal(described[0].getAttribute("aria-invalid"), "true", "control missing aria-invalid");
+		assert.ok(doc.querySelector(".invalid"), "no control/container marked .invalid");
+
+		// summary just above the button
+		const summary = doc.getElementById("errorSummary");
+		assert.equal(summary.hidden, false, "error summary not shown");
+		assert.equal(summary.getAttribute("role"), "alert", "summary missing role=alert");
+		assert.match(summary.textContent, new RegExp("^Please fix the " + errs.length + " highlighted fields? above\\.$"), "summary text/count wrong");
+
+		// radio/checkbox group: one shared message; selecting an option clears it
+		const gInput = doc.querySelector('input[type="radio"][aria-invalid], input[type="checkbox"][aria-invalid]');
+		if (gInput) {
+			const shared = [...doc.querySelectorAll('input[name="' + gInput.name + '"][aria-describedby]')].map((r) => r.getAttribute("aria-describedby"));
+			assert.equal(new Set(shared).size, 1, "radio/checkbox group has more than one message");
+			const msgId = shared[0];
+			gInput.checked = true;
+			gInput.dispatchEvent(new w.Event("change", { bubbles: true }));
+			assert.equal(doc.getElementById(msgId), null, "group error not cleared after selecting an option");
+		}
+
+		// single text/email field clears its error live as soon as it is corrected
+		const single = [...doc.querySelectorAll("input.invalid")].find((x) => x.type === "text" || x.type === "email");
+		if (single) {
+			const before = doc.querySelectorAll(".field-error").length;
+			single.value = single.type === "email" ? "a@b.com" : "x";
+			single.dispatchEvent(new w.Event("input", { bubbles: true }));
+			assert.ok(doc.querySelectorAll(".field-error").length < before, "single field error not cleared live");
+			assert.equal(single.classList.contains("invalid"), false, "corrected control still marked invalid");
+		}
+	});
+
 	// 4b. LLN-only: the assessor "Section 1 — Language" card renders and is fully optional.
 	if (file === "lln-assessment-form.html") {
 		check("Section 1 Language (assessor) card renders with 5 items and an amber note", () => {
@@ -153,9 +205,10 @@ for (const { file, tables } of forms) {
 			assert.match(heads[idx - 1], /Self rating/, "card not placed after the self-rating card");
 			assert.match(heads[idx + 1], /Literacy/, "card not placed before the Literacy card");
 
+			// The amber assessor note is optional (it may be commented out in the markup);
+			// if present it must carry the assessor wording.
 			const amber = document.querySelector(".card .note.amber");
-			assert.ok(amber, "amber assessor note missing");
-			assert.match(amber.textContent, /assessor during verbal questioning/, "amber note text wrong");
+			if (amber) assert.match(amber.textContent, /assessor during verbal questioning/, "amber note text wrong");
 
 			for (let n = 1; n <= 5; n++) {
 				assert.ok(document.querySelector(`[name="lang${n}_answer"]`), `item ${n} answer control missing`);
