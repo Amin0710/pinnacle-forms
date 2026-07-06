@@ -142,6 +142,40 @@ for (const { file, tables } of forms) {
 		assert.equal(fetched, false, "form was submitted despite being empty");
 	});
 
+	// 4b. LLN-only: the assessor "Section 1 — Language" card renders and is fully optional.
+	if (file === "lln-assessment-form.html") {
+		check("Section 1 Language (assessor) card renders with 5 items and an amber note", () => {
+			const heads = [...document.querySelectorAll(".card .head")].map((h) =>
+				h.textContent.replace(/\s+/g, " ").trim(),
+			);
+			const idx = heads.findIndex((h) => h.startsWith("Section 1 — Language"));
+			assert.ok(idx > -1, "Section 1 — Language card not found");
+			assert.match(heads[idx - 1], /Self rating/, "card not placed after the self-rating card");
+			assert.match(heads[idx + 1], /Literacy/, "card not placed before the Literacy card");
+
+			const amber = document.querySelector(".card .note.amber");
+			assert.ok(amber, "amber assessor note missing");
+			assert.match(amber.textContent, /assessor during verbal questioning/, "amber note text wrong");
+
+			for (let n = 1; n <= 5; n++) {
+				assert.ok(document.querySelector(`[name="lang${n}_answer"]`), `item ${n} answer control missing`);
+				assert.equal(document.querySelectorAll(`[name="lang${n}_attempts"]`).length, 3, `item ${n} should have 3 attempts radios`);
+				const suff = [...document.querySelectorAll(`[name="lang${n}_sufficient"]`)];
+				assert.deepEqual(suff.map((r) => r.value), ["Yes", "No"], `item ${n} sufficient radios wrong`);
+				assert.ok(document.querySelector(`input[name="lang${n}_comments"]`), `item ${n} comments input missing`);
+			}
+		});
+
+		check("all Section 1 assessor fields are optional (students leave blank)", () => {
+			const fields = document.querySelectorAll('[name^="lang"]');
+			assert.ok(fields.length >= 5 * (1 + 3 + 2 + 1), "expected the full set of assessor fields");
+			fields.forEach((f) => {
+				assert.equal(f.required, false, "assessor field is required: " + f.name);
+				assert.equal(f.hasAttribute("data-was-required"), false, "assessor field wrongly tagged data-was-required: " + f.name);
+			});
+		});
+	}
+
 	// 5. enrolment-form-only interactive behaviours
 	if (file === "enrolment-form.html") {
 		const fire = (el, type = "change") =>
