@@ -1443,21 +1443,11 @@
 							</legend>
 							<div class="choices">
 								<label class="inline"
-									><input
-										type="radio"
-										name="prev_quals"
-										value="Yes"
-										required
-									/>
+									><input type="radio" name="prev_quals" value="Yes" required />
 									Yes</label
 								>
 								<label class="inline"
-									><input
-										type="radio"
-										name="prev_quals"
-										value="No"
-									/>
-									No</label
+									><input type="radio" name="prev_quals" value="No" /> No</label
 								>
 							</div>
 							<p class="hint">Select Yes to enable the table below.</p>
@@ -1854,44 +1844,44 @@
 									employees — skip if not applicable)</span
 								>
 							</legend>
-								<div class="grid g2">
-									<div class="field">
-										<label for="emp_legal">Employer’s legal name</label
-										><input type="text" id="emp_legal" name="emp_legal" />
-									</div>
-									<div class="field">
-										<label for="emp_position">Your position</label
-										><input type="text" id="emp_position" name="emp_position" />
-									</div>
-									<div class="field" style="grid-column: 1/-1">
-										<label for="emp_address">Business address</label
-										><input type="text" id="emp_address" name="emp_address" />
-									</div>
-									<div class="field">
-										<label for="emp_phone">Phone</label
-										><input type="tel" id="emp_phone" name="emp_phone" />
-									</div>
-									<div class="field">
-										<label for="emp_email">Email</label
-										><input type="email" id="emp_email" name="emp_email" />
-									</div>
-									<div class="field">
-										<label for="emp_supervisor">Supervisor</label
-										><input
-											type="text"
-											id="emp_supervisor"
-											name="emp_supervisor"
-										/>
-									</div>
-									<div class="field">
-										<label for="emp_sup_position">Supervisor’s position</label
-										><input
-											type="text"
-											id="emp_sup_position"
-											name="emp_sup_position"
-										/>
-									</div>
+							<div class="grid g2">
+								<div class="field">
+									<label for="emp_legal">Employer’s legal name</label
+									><input type="text" id="emp_legal" name="emp_legal" />
 								</div>
+								<div class="field">
+									<label for="emp_position">Your position</label
+									><input type="text" id="emp_position" name="emp_position" />
+								</div>
+								<div class="field" style="grid-column: 1/-1">
+									<label for="emp_address">Business address</label
+									><input type="text" id="emp_address" name="emp_address" />
+								</div>
+								<div class="field">
+									<label for="emp_phone">Phone</label
+									><input type="tel" id="emp_phone" name="emp_phone" />
+								</div>
+								<div class="field">
+									<label for="emp_email">Email</label
+									><input type="email" id="emp_email" name="emp_email" />
+								</div>
+								<div class="field">
+									<label for="emp_supervisor">Supervisor</label
+									><input
+										type="text"
+										id="emp_supervisor"
+										name="emp_supervisor"
+									/>
+								</div>
+								<div class="field">
+									<label for="emp_sup_position">Supervisor’s position</label
+									><input
+										type="text"
+										id="emp_sup_position"
+										name="emp_sup_position"
+									/>
+								</div>
+							</div>
 						</fieldset>
 					</div>
 				</div>
@@ -2133,8 +2123,8 @@
 									your personal information, correct it, make a complaint about
 									how it has been handled, or ask a question about this Privacy
 									Notice:
-									<a href="mailto:info@pinnacleinstitute.com.au"
-										>info@pinnacleinstitute.com.au</a
+									<a href="mailto:studentsupport@pinnacleinstitute.com.au"
+										>studentsupport@pinnacleinstitute.com.au</a
 									>.
 								</p>
 								<hr />
@@ -2198,8 +2188,8 @@
 									information, and to complain if you believe your privacy has
 									been breached. Contact Pinnacle Institute of Education’s
 									Privacy Officer at
-									<a href="mailto:info@pinnacleinstitute.com.au"
-										>info@pinnacleinstitute.com.au</a
+									<a href="mailto:studentsupport@pinnacleinstitute.com.au"
+										>studentsupport@pinnacleinstitute.com.au</a
 									>.
 								</p>
 							</div>
@@ -2538,7 +2528,9 @@
 					});
 					if (firstName) firstName.required = !on;
 					if (familyLabel)
-						familyLabel.textContent = on ? "Full name (single name)" : familyLabelText;
+						familyLabel.textContent = on
+							? "Full name (single name)"
+							: familyLabelText;
 				}
 				if (singleName) {
 					singleName.addEventListener("change", syncSingleName);
@@ -2549,13 +2541,16 @@
 				var qualsList = document.getElementById("qualslist");
 				function syncQuals() {
 					if (!qualsList) return;
-					var yes = document.querySelector('input[name="prev_quals"][value="Yes"]');
+					var yes = document.querySelector(
+						'input[name="prev_quals"][value="Yes"]',
+					);
 					var on = !!(yes && yes.checked);
 					qualsList.classList.toggle("qual-disabled", !on);
 					qualsList.querySelectorAll("input,select").forEach(function (f) {
 						f.disabled = !on;
 						if (!on) {
-							if (f.type === "checkbox" || f.type === "radio") f.checked = false;
+							if (f.type === "checkbox" || f.type === "radio")
+								f.checked = false;
 							else f.value = "";
 						}
 					});
@@ -2597,7 +2592,8 @@
 					modal.classList.remove("open");
 					modal.setAttribute("hidden", "");
 					document.removeEventListener("keydown", onModalKey);
-					if (modalReturnFocus && modalReturnFocus.focus) modalReturnFocus.focus();
+					if (modalReturnFocus && modalReturnFocus.focus)
+						modalReturnFocus.focus();
 				}
 				function onModalKey(e) {
 					/* Esc dismisses errors only — a successful submit is terminal */
@@ -2701,7 +2697,7 @@
 						.catch(function () {
 							showStatus(
 								"err",
-								"Something went wrong sending your form. Please check your internet connection and press Submit again, or contact info@pinnacleinstitute.com.au.",
+								"Something went wrong sending your form. Please check your internet connection and press Submit again, or contact studentsupport@pinnacleinstitute.com.au.",
 							);
 							btn.disabled = false;
 							btn.textContent = "Try again";
