@@ -495,6 +495,9 @@
 			.btn-close:hover {
 				filter: brightness(0.94);
 			}
+			.qual-disabled {
+				opacity: 0.5;
+			}
 		</style>
 	</head>
 	<body>
@@ -704,8 +707,8 @@
 							</legend>
 							<p class="hint" style="margin: 0 0 6px">
 								Email copies of these documents to
-								<a href="mailto:info@pinnacleinstitute.com.au"
-									>info@pinnacleinstitute.com.au</a
+								<a href="mailto:studentsupport@pinnacleinstitute.com.au"
+									>studentsupport@pinnacleinstitute.com.au</a
 								>. You will need to bring the originals to your orientation day
 								for verification. Tick those you are providing:
 							</p>
@@ -1073,6 +1076,7 @@
 										type="text"
 										id="birth_country_other"
 										name="birth_country_other"
+										required
 									/>
 								</div>
 							</div>
@@ -1114,6 +1118,7 @@
 										type="text"
 										id="other_language_specify"
 										name="other_language_specify"
+										required
 									/>
 								</div>
 							</div>
@@ -1443,7 +1448,6 @@
 										name="prev_quals"
 										value="Yes"
 										required
-										data-reveal="qualslist"
 									/>
 									Yes</label
 								>
@@ -1452,12 +1456,12 @@
 										type="radio"
 										name="prev_quals"
 										value="No"
-										data-reveal-close="qualslist"
 									/>
 									No</label
 								>
 							</div>
-							<div class="reveal" id="qualslist">
+							<p class="hint">Select Yes to enable the table below.</p>
+							<div id="qualslist">
 								<span class="q"
 									>15. Tick ANY applicable boxes and choose the recognition
 									identifier</span
@@ -1850,17 +1854,6 @@
 									employees — skip if not applicable)</span
 								>
 							</legend>
-							<label class="inline"
-								><input
-									type="checkbox"
-									id="emp_applicable"
-									name="emp_applicable"
-									value="Yes"
-									data-reveal="empblock"
-								/>
-								This section applies to me</label
-							>
-							<div class="reveal" id="empblock">
 								<div class="grid g2">
 									<div class="field">
 										<label for="emp_legal">Employer’s legal name</label
@@ -1899,7 +1892,6 @@
 										/>
 									</div>
 								</div>
-							</div>
 						</fieldset>
 					</div>
 				</div>
@@ -2016,16 +2008,18 @@
 								>. You should not have more than one USI.
 							</p>
 							<div class="field" style="max-width: 340px">
-								<label for="usi"
+								<label class="req" for="usi"
 									>20. Enter your USI
 									<span style="font-weight: 400"
-										>(if you already have one or have applied)</span
+										>(required — apply at usi.gov.au if you don't have one
+										yet)</span
 									></label
 								><input
 									type="text"
 									id="usi"
 									name="usi"
 									maxlength="10"
+									required
 									style="text-transform: uppercase; letter-spacing: 0.15em"
 								/>
 							</div>
@@ -2309,11 +2303,11 @@
 			Pinnacle Institute of Education&nbsp; RTO: 20738 | CRICOS: 04162E<br />
 			Level 11, 18-38A Siddeley St Docklands VIC 3008 | PO Box 115, Heidelberg,
 			Victoria, 3084<br />
-			Phone: 1300 917 130 | Email:
+			Phone: 0468 300 338 | Email:
 			<a href="mailto:info@pinnacleinstitute.com.au"
 				>info@pinnacleinstitute.com.au</a
 			><br />
-			SC6.2-I – Enrolment Form V3.0 (ID 186643)
+			Enrolment Form
 		</footer>
 
 		<!-- result modal (populated by the form script on submit) -->
@@ -2347,6 +2341,9 @@
 
 			(function () {
 				"use strict";
+
+				/* Build marker — bump on every change so we can confirm which version is live */
+				console.log("Pinnacle forms build 2026-07-06-1");
 
 				/* ---------- show/hide conditional blocks ---------- */
 				function setReveal(id, open) {
@@ -2526,6 +2523,65 @@
 					if (f && !f.value) f.value = new Date().toISOString().slice(0, 10);
 				});
 
+				/* ---------- Q1: single name only ---------- */
+				var singleName = document.getElementById("single_name");
+				var firstName = document.getElementById("first_name");
+				var middleName = document.getElementById("middle_name");
+				var familyLabel = document.querySelector('label[for="family_name"]');
+				var familyLabelText = familyLabel ? familyLabel.textContent : "";
+				function syncSingleName() {
+					var on = singleName.checked;
+					[firstName, middleName].forEach(function (f) {
+						if (!f) return;
+						f.disabled = on;
+						if (on) f.value = "";
+					});
+					if (firstName) firstName.required = !on;
+					if (familyLabel)
+						familyLabel.textContent = on ? "Full name (single name)" : familyLabelText;
+				}
+				if (singleName) {
+					singleName.addEventListener("change", syncSingleName);
+					syncSingleName();
+				}
+
+				/* ---------- Q14/Q15: qualifications table always visible, enabled only on Yes ---------- */
+				var qualsList = document.getElementById("qualslist");
+				function syncQuals() {
+					if (!qualsList) return;
+					var yes = document.querySelector('input[name="prev_quals"][value="Yes"]');
+					var on = !!(yes && yes.checked);
+					qualsList.classList.toggle("qual-disabled", !on);
+					qualsList.querySelectorAll("input,select").forEach(function (f) {
+						f.disabled = !on;
+						if (!on) {
+							if (f.type === "checkbox" || f.type === "radio") f.checked = false;
+							else f.value = "";
+						}
+					});
+				}
+				document
+					.querySelectorAll('input[name="prev_quals"]')
+					.forEach(function (r) {
+						r.addEventListener("change", syncQuals);
+					});
+				syncQuals();
+
+				/* ---------- Q20: USI required, exactly 10 letters/digits, auto-uppercase ---------- */
+				var usi = document.getElementById("usi");
+				function validateUsi() {
+					if (!usi) return;
+					usi.value = usi.value.toUpperCase();
+					if (usi.value && !/^[A-Z0-9]{10}$/.test(usi.value)) {
+						usi.setCustomValidity(
+							"Your USI must be exactly 10 characters — letters and numbers only.",
+						);
+					} else {
+						usi.setCustomValidity("");
+					}
+				}
+				if (usi) usi.addEventListener("input", validateUsi);
+
 				/* ---------- submission ---------- */
 				var form = document.getElementById("mainform");
 				var btn = document.getElementById("submitbtn");
@@ -2586,6 +2642,9 @@
 							lit4.setCustomValidity("");
 						}
 					}
+
+					/* custom check: USI format (10 alphanumeric) */
+					validateUsi();
 
 					if (!form.checkValidity()) {
 						form.reportValidity();

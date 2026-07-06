@@ -141,6 +141,133 @@ for (const { file, tables } of forms) {
 		assert.equal(ev.defaultPrevented, true, "submit default was not prevented");
 		assert.equal(fetched, false, "form was submitted despite being empty");
 	});
+
+	// 5. enrolment-form-only interactive behaviours
+	if (file === "enrolment-form.html") {
+		const fire = (el, type = "change") =>
+			el.dispatchEvent(new window.Event(type, { bubbles: true }));
+
+		// 5a. Single-name toggle disables/clears given names and swaps the family-name label.
+		check("single-name toggle disables/clears given names and updates label", () => {
+			const sn = document.getElementById("single_name");
+			const fn = document.getElementById("first_name");
+			const mn = document.getElementById("middle_name");
+			const label = document.querySelector('label[for="family_name"]');
+			const original = label.textContent;
+			fn.value = "Jane";
+			mn.value = "Q";
+			assert.equal(fn.required, true, "first name should start required");
+
+			sn.checked = true;
+			fire(sn);
+			assert.equal(fn.disabled, true, "first name not disabled when ticked");
+			assert.equal(mn.disabled, true, "middle name not disabled when ticked");
+			assert.equal(fn.value, "", "first name not cleared");
+			assert.equal(mn.value, "", "middle name not cleared");
+			assert.equal(fn.required, false, "first name still required when ticked");
+			assert.equal(label.textContent, "Full name (single name)", "family label not updated");
+
+			sn.checked = false;
+			fire(sn);
+			assert.equal(fn.disabled, false, "first name not re-enabled");
+			assert.equal(fn.required, true, "first name not required again");
+			assert.equal(label.textContent, original, "family label not restored");
+		});
+
+		// 5b. Qualifications table is always in the DOM (not a reveal); enabled only when Q14 = Yes.
+		check("qualifications table always visible, enabled only when Q14 = Yes", () => {
+			const list = document.getElementById("qualslist");
+			assert.ok(list, "#qualslist not found");
+			assert.equal(list.classList.contains("reveal"), false, "#qualslist is still a reveal");
+			const fields = () => list.querySelectorAll("input,select");
+			const allDisabled = () => [...fields()].every((f) => f.disabled);
+			const allEnabled = () => [...fields()].every((f) => !f.disabled);
+
+			// unanswered on load -> disabled + dimmed
+			assert.equal(allDisabled(), true, "table not disabled while Q14 unanswered");
+			assert.equal(list.classList.contains("qual-disabled"), true, "qual-disabled class missing when disabled");
+
+			const yes = document.querySelector('input[name="prev_quals"][value="Yes"]');
+			const no = document.querySelector('input[name="prev_quals"][value="No"]');
+			yes.checked = true;
+			fire(yes);
+			assert.equal(allEnabled(), true, "table not enabled when Q14 = Yes");
+			assert.equal(list.classList.contains("qual-disabled"), false, "qual-disabled class present when enabled");
+
+			// populate, then answer No -> cleared + disabled again
+			const cb = list.querySelector('input[type="checkbox"]');
+			const sel = list.querySelector("select");
+			cb.checked = true;
+			sel.selectedIndex = 1;
+			no.checked = true;
+			fire(no);
+			assert.equal(allDisabled(), true, "table not disabled when Q14 = No");
+			assert.equal(cb.checked, false, "checkbox not cleared on Q14 = No");
+			assert.equal(sel.value, "", "select not cleared on Q14 = No");
+		});
+
+		// 5c. USI is required and validates as exactly 10 alphanumeric chars, auto-uppercased.
+		check("USI is required and validates exactly 10 alphanumeric chars", () => {
+			const usi = document.getElementById("usi");
+			assert.equal(usi.required, true, "USI not required");
+
+			usi.value = "abcd1234ef";
+			fire(usi, "input");
+			assert.equal(usi.value, "ABCD1234EF", "USI not auto-uppercased");
+			assert.equal(usi.validationMessage, "", "valid USI reports a custom error");
+			assert.equal(usi.checkValidity(), true, "valid 10-char USI reported invalid");
+
+			usi.value = "SHORT";
+			fire(usi, "input");
+			assert.equal(usi.checkValidity(), false, "5-char USI reported valid");
+
+			usi.value = "ABC!@#1234";
+			fire(usi, "input");
+			assert.equal(usi.checkValidity(), false, "non-alphanumeric USI reported valid");
+
+			usi.value = "";
+			fire(usi, "input");
+			assert.equal(usi.checkValidity(), false, "empty required USI reported valid");
+		});
+
+		// 5d. Q7/Q8 "Other" fields become required only while their reveal is open,
+		//     and are cleared + un-required when it closes (data-was-required loader).
+		check("Q7/Q8 Other fields are required only while their reveal is open", () => {
+			const cases = [
+				{ field: "birth_country_other", radio: 'input[name="birth_country"][value="Other"]', close: 'input[name="birth_country"]:not([value="Other"])' },
+				{ field: "other_language_specify", radio: 'input[name="other_language"][value="Yes"]', close: 'input[name="other_language"][value="No, English only"]' },
+			];
+			cases.forEach(({ field, radio, close }) => {
+				const f = document.getElementById(field);
+				assert.ok(f, "#" + field + " not found");
+				assert.equal(f.getAttribute("data-was-required"), "1", field + " not tagged data-was-required");
+				assert.equal(f.required, false, field + " should not be required on load (reveal closed)");
+
+				document.querySelector(radio).checked = true;
+				fire(document.querySelector(radio));
+				assert.equal(f.required, true, field + " not required when reveal opened");
+
+				f.value = "typed";
+				document.querySelector(close).checked = true;
+				fire(document.querySelector(close));
+				assert.equal(f.required, false, field + " still required when reveal closed");
+				assert.equal(f.value, "", field + " not cleared when reveal closed");
+			});
+		});
+
+		// 5e. Employment details are always visible: no gating checkbox / reveal wrapper.
+		check("employment details always visible (no reveal, no emp_applicable)", () => {
+			assert.equal(document.getElementById("emp_applicable"), null, "emp_applicable checkbox still present");
+			assert.equal(document.getElementById("empblock"), null, "empblock reveal wrapper still present");
+			const ids = ["emp_legal", "emp_position", "emp_address", "emp_phone", "emp_email", "emp_supervisor", "emp_sup_position"];
+			ids.forEach((id) => {
+				const f = document.getElementById(id);
+				assert.ok(f, "#" + id + " not found");
+				assert.equal(f.disabled, false, "#" + id + " is disabled");
+				assert.equal(f.closest(".reveal"), null, "#" + id + " is still inside a reveal");
+			});
+		});
+	}
 }
 
 console.log("\n" + "-".repeat(48));
