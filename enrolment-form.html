@@ -214,6 +214,13 @@
 					grid-template-columns: 1fr;
 				}
 			}
+			.grid .field {
+				display: flex;
+				flex-direction: column;
+			}
+			.grid .field label {
+				flex: 1;
+			}
 			.field label,
 			.field .lbl {
 				display: block;
@@ -2351,7 +2358,7 @@
 				"use strict";
 
 				/* Build marker — bump on every change so we can confirm which version is live */
-				console.log("Pinnacle forms build 2026-07-06-3");
+				console.log("Pinnacle forms build 2026-07-06-4");
 
 				/* ---------- show/hide conditional blocks ---------- */
 				function setReveal(id, open) {
